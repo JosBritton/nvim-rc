@@ -7,7 +7,7 @@ require("lazy").setup({
   { import = "plugins" },
 }, {
   install = {
-    colorscheme = { "onedark" },
+    colorscheme = { "monokai" },
   },
   checker = {
     enabled = true,
