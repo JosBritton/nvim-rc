@@ -1,5 +1,4 @@
 return {
-    "numToStr/Comment.nvim",
-    config = true,
+    "tpope/vim-sleuth",
     event = { "BufReadPre", "BufNewFile" },
 }

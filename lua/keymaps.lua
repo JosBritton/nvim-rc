@@ -1,29 +1,42 @@
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
--- remap for dealing with word wrap
--- vim.keymap.set("n", "k", "v:count == 0 ? "gk" : "k"", { expr = true, silent = true })
--- vim.keymap.set("n", "j", "v:count == 0 ? "gj" : "j"", { expr = true, silent = true })
-
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
--- see `:help vim.highlight.on_yank()`
-local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+-- highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-  group = highlight_group,
-  pattern = "*",
+    callback = function()
+        vim.highlight.on_yank()
+    end,
+    group = vim.api.nvim_create_augroup("YankHighlight", { clear = true }),
+    pattern = "*",
 })
 
--- netrw shortcut
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>pv",
+    --  vim.cmd.Ex,
+    "<Cmd>echo 'Use fuzzy finder with <C-p> instead.'<CR>",
+    { desc = "Open Netrw" }
+)
 
--- system register, useful if not using OS clipboard `vim.o.clipboard`
---vim.keymap.set("n", "cy", ""*y")
---vim.keymap.set("n", "cp", ""*p")
+vim.keymap.set({ "c", "i" }, "<C-BS>", "<C-S-W>", { noremap = true, desc = "Delete word" })
+vim.keymap.set({ "c", "i" }, "<C-h>", "<C-S-W>", { noremap = true, desc = "Delete word" })
 
--- vim: ts=2 sts=2 sw=2 et
+vim.keymap.set("n", "<Esc>", "<Cmd>noh<CR>", { noremap = true, desc = "Clear highlighting" })
+
+--vim.keymap.set("n", "cy", ""*y", { desc = "Yank to OS clipboard" })
+--vim.keymap.set("n", "cp", ""*p", { desc = "Paste from OS clipboard" })
+
+-- center buffer on search result navigation
+vim.keymap.set("n", "n", "nzz", { noremap = true })
+vim.keymap.set("n", "N", "Nzz", { noremap = true })
+vim.keymap.set("n", "*", "*zz", { noremap = true })
+vim.keymap.set("n", "#", "#zz", { noremap = true })
+vim.keymap.set("n", "g*", "g*zz", { noremap = true })
+vim.keymap.set("n", "g#", "g#zz", { noremap = true })
+
+-- center cursor on first result from scroll
+vim.keymap.set("c", "<CR>", function()
+    return string.find(vim.fn.getcmdtype(), "[/?]") and "<CR>zz" or "<CR>"
+end, { expr = true, noremap = true })
