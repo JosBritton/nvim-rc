@@ -15,7 +15,7 @@ return {
                 ensure_installed = { "c", "cpp", "go", "lua", "python", "rust", "tsx", "javascript", "typescript", "vimdoc", "vim", "bash" },
 
                 -- autoinstall languages that are not installed
-                auto_install = false,
+                auto_install = true,
 
                 -- no synchronous installations
                 sync_install = false,
@@ -23,7 +23,10 @@ return {
                 ignore_install = {},
                 modules = {},
 
-                highlight = { enable = true },
+                highlight = {
+                    enable = true,
+                    additional_vim_regex_highlighting = false,
+                },
                 indent = { enable = true },
                 incremental_selection = {
                     enable = true,

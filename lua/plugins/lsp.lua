@@ -8,6 +8,7 @@ return {
         { "j-hui/fidget.nvim", opts = {} },
         "folke/neodev.nvim",
     },
+    cmd = { "Mason" },
     event = { "BufReadPre", "BufNewFile" },
     config = function()
         --  this function gets run when an LSP connects to a particular buffer.
@@ -37,12 +38,15 @@ return {
             nmap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
 
             -- lesser used LSP functionality
-            nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-            nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
-            nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
-            nmap("<leader>wl", function()
-                print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-            end, "[W]orkspace [L]ist Folders")
+            -- nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+            -- nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
+            -- nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
+            -- nmap("<leader>wl", function()
+            --     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+            -- end, "[W]orkspace [L]ist Folders")
+
+            -- manual format binding
+            vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = "Format current buffer with LSP" })
 
             -- create a command `:Format` local to the LSP buffer
             vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
