@@ -50,4 +50,4 @@ vim.o.scrolloff = 8
 vim.o.hlsearch = true
 vim.o.incsearch = true
 
-vim.o.colorcolumn = "100"
+-- vim.o.colorcolumn = "100"
