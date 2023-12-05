@@ -30,7 +30,7 @@ vim.keymap.set("n", "<Esc>", "<Cmd>noh<CR>", { noremap = true, desc = "Clear hig
 
 -- center buffer on search result navigation
 vim.keymap.set("n", "n", "nzzzv", { noremap = true })
-vim.keymap.set("n", "n", "Nzzzv", { noremap = true })
+vim.keymap.set("n", "N", "Nzzzv", { noremap = true })
 
 -- vim.keymap.set("n", "n", "nzz", { noremap = true })
 -- vim.keymap.set("n", "N", "Nzz", { noremap = true })
@@ -59,18 +59,16 @@ vim.keymap.set("i", "<A-k>", "<Esc><Cmd>m .-2<CR>==gi", { noremap = true, desc =
 vim.keymap.set("v", "<A-j>", "<Cmd>m '>+1<CR>gv=gv", { noremap = true, desc = "Move line down" })
 vim.keymap.set("v", "<A-k>", "<Cmd>m '>-2<CR>gv=gv", { noremap = true, desc = "Move line up" })
 
--- send paste to void
--- vim.keymap.set("x", "<leader>p", "\"_dP")
+-- vim.keymap.set("x", "<leader>p", "\"_dP", { desc = "Paste to void reg" })
 
 vim.keymap.set("n", "Q", "<Nop>")
 
 vim.keymap.set("n", "<C-f>", "<Cmd>silent !tmux neww switchproj<CR>")
 
--- quickfix nav
--- vim.keymap.set("n", "<C-k>", "<Cmd>cnext<CR>zz")
--- vim.keymap.set("n", "<C-j>", "<Cmd>cprev<CR>zz")
--- vim.keymap.set("n", "<leader>k", "<Cmd>lnext<CR>zz")
--- vim.keymap.set("n", "<leader>j", "<Cmd>lprev<CR>zz")
+-- vim.keymap.set("n", "<C-k>", "<Cmd>cnext<CR>zz", { desc = "Quickfix nav next"})
+-- vim.keymap.set("n", "<C-j>", "<Cmd>cprev<CR>zz", { desc = "Quickfix nav previous"})
+-- vim.keymap.set("n", "<leader>k", "<Cmd>lnext<CR>zz", { desc = "Location list nav next"})
+-- vim.keymap.set("n", "<leader>j", "<Cmd>lprev<CR>zz", { desc = "Location list nav previous"})
 
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
     { desc = "Find and replace the word under the cursor" })
