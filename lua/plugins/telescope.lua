@@ -16,7 +16,7 @@ return {
     },
     keys = {
         { "<leader>?",  "<cmd>Telescope oldfiles<CR>",   desc = "[?] Find recently opened files" },
-        -- { "<leader><space>", "<cmd>Telescope buffers<CR>",  desc = "[ ] Find existing buffers" },
+        -- { "<leader><space>", "<cmd>Telescope buffers<CR>", desc = "[ ] Find existing buffers" },
         {
             "<leader>/",
             function()
@@ -65,7 +65,7 @@ return {
         -- telescope live_grep in git root
         -- function to find the git root directory based on the current buffer's path
         local function find_git_root()
-            -- use the current buffer"s path as the starting point for the git search
+            -- use the current buffer's path as the starting point for the git search
             local current_file = vim.api.nvim_buf_get_name(0)
             local current_dir
             local cwd = vim.fn.getcwd()
