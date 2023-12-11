@@ -1,8 +1,8 @@
 return {
-    "tanvirtin/monokai.nvim",
+    "JoeeBritton/nvim-juliana",
     priority = 1000,
     lazy = false,
     config = function()
-        vim.cmd.colorscheme "monokai"
+        vim.cmd.colorscheme "juliana"
     end,
 }
