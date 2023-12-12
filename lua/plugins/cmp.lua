@@ -6,8 +6,6 @@ return {
         "saadparwaiz1/cmp_luasnip",
         -- adds LSP completion capabilities
         "hrsh7th/cmp-nvim-lsp",
-        -- adds a number of user-friendly snippets
-        "rafamadriz/friendly-snippets",
     },
     event = "InsertEnter",
     config = function()
@@ -35,11 +33,7 @@ return {
                 ["<C-d>"] = cmp.mapping.scroll_docs(-4),
                 ["<C-f>"] = cmp.mapping.scroll_docs(4),
                 ["<C-Space>"] = cmp.mapping.complete {},
-                -- ["<CR>"] = cmp.mapping.confirm {
-                --     behavior = cmp.ConfirmBehavior.Replace,
-                --     select = true,
-                -- },
-                ["<C-y>"] = cmp.mapping.confirm {
+                ["<CR>"] = cmp.mapping.confirm {
                     behavior = cmp.ConfirmBehavior.Replace,
                     select = true,
                 },
