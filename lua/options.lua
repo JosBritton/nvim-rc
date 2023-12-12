@@ -16,6 +16,7 @@ vim.o.breakindent = true
 
 -- persist undo history (permanently lost if file is modified externally!)
 vim.o.undofile = true
+
 vim.o.backup = false
 vim.o.swapfile = true
 
@@ -25,6 +26,11 @@ vim.o.smartcase = true
 
 vim.o.smartindent = true
 vim.o.expandtab = true
+
+-- default for when sleuth has NO reference
+vim.o.shiftwidth = 4
+vim.o.tabstop = 4
+vim.o.softtabstop = 4
 
 -- render space for column even if it has no content (prevents text from shifting)
 vim.wo.signcolumn = "yes"
@@ -51,3 +57,6 @@ vim.o.hlsearch = true
 vim.o.incsearch = true
 
 -- vim.o.colorcolumn = "100"
+
+vim.g.netrw_browse_split = 0
+vim.g.netrw_banner = 0
