@@ -18,10 +18,10 @@ vim.o.breakindent = true
 
 -- permanently lost if file is modified externally!
 vim.o.undofile = true
-vim.o.undodir = state .. "/nvim/undo//" -- def
+vim.o.undodir = state .. "/undo//" -- def
 
 vim.o.backup = true
-vim.o.backupdir = state .. "/nvim/backup//"
+vim.o.backupdir = state .. "/backup//"
 
 vim.o.swapfile = true
 
