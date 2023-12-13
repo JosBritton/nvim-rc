@@ -1,3 +1,5 @@
+local state = vim.fn.stdpath("state")
+
 -- must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
@@ -14,10 +16,13 @@ vim.o.clipboard = "unnamedplus"
 
 vim.o.breakindent = true
 
--- persist undo history (permanently lost if file is modified externally!)
+-- permanently lost if file is modified externally!
 vim.o.undofile = true
+vim.o.undodir = state .. "/nvim/undo//" -- def
 
-vim.o.backup = false
+vim.o.backup = true
+vim.o.backupdir = state .. "/nvim/backup//"
+
 vim.o.swapfile = true
 
 -- case-insensitive searching UNLESS \C or capital in search
@@ -45,7 +50,7 @@ vim.o.termguicolors = true
 
 vim.o.wrap = false
 
-vim.o.cursorline = true
+-- vim.o.cursorline = true
 vim.o.backspace = "indent,eol,start"
 
 -- always center the cursor in the buffer
