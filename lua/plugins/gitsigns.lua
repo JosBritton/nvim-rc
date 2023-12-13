@@ -3,19 +3,11 @@ return {
     "lewis6991/gitsigns.nvim",
     -- event = { "BufReadPre", "BufNewFile" },
     opts = {
-        -- see `:help gitsigns.txt`
-        -- signs = {
-        --     add = { text = "+" },
-        --     change = { text = "~" },
-        --     delete = { text = "_" },
-        --     topdelete = { text = "‾" },
-        --     changedelete = { text = "~" },
-        -- },
         signs = {
             add          = { text = "+" },
             change       = { text = "~" },
             delete       = { text = "-" },
-            topdelete    = { text = "-" },
+            topdelete    = { text = "‾" },
             changedelete = { text = "~" },
             untracked    = { text = "┆" },
         },
