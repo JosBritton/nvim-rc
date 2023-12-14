@@ -62,6 +62,3 @@ vim.o.hlsearch = true
 vim.o.incsearch = true
 
 -- vim.o.colorcolumn = "100"
-
-vim.g.netrw_browse_split = 0
-vim.g.netrw_banner = 0
