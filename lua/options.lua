@@ -13,6 +13,8 @@ vim.wo.relativenumber = true
 
 -- use OS clipboard
 vim.o.clipboard = "unnamedplus"
+-- https://github.com/neovim/neovim/issues/23650
+--vim.g.netrw_banner = 0
 
 vim.o.breakindent = true
 
