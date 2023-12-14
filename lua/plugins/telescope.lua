@@ -59,6 +59,10 @@ return {
             error("ripgrep not installed")
         end
 
+        if vim.fn.executable "fzf" ~= 1 then
+            error("fzf not installed")
+        end
+
         -- enable telescope fzf native, if installed
         pcall(require("telescope").load_extension, "fzf")
 
