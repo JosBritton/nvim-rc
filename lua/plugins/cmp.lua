@@ -6,6 +6,7 @@ return {
         "saadparwaiz1/cmp_luasnip",
         -- adds LSP completion capabilities
         "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-path",
     },
     event = "InsertEnter",
     config = function()
@@ -57,6 +58,7 @@ return {
             sources = {
                 { name = "nvim_lsp" },
                 { name = "luasnip" },
+                { name = "path" },
             },
         }
     end,
