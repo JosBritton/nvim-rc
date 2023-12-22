@@ -1,7 +1,6 @@
 -- vim: ts=4 sts=4 sw=4 et
 return {
     "neovim/nvim-lspconfig",
-    enabled = false,
     config = function()
         -- switch for controlling whether you want autoformatting.
         --  use :KickstartFormatToggle to toggle autoformatting on or off
