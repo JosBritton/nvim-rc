@@ -1,4 +1,3 @@
-require("options")
-require("lazy-bootstrap")
-require("lazy-plugins")
-require("keymaps")
+require("josbritton.options")
+require("josbritton.lazy")
+require("josbritton.keymaps")
