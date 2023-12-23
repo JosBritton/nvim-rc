@@ -1,5 +1,5 @@
 return {
-    "JoeeBritton/nvim-juliana",
+    "JosBritton/nvim-juliana",
     priority = 1000,
     lazy = false,
     config = function()
