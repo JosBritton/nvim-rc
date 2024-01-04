@@ -1,5 +1,4 @@
 return {
-    -- highlight, edit, and navigate code
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
         "nvim-treesitter/nvim-treesitter-textobjects",
@@ -7,22 +6,16 @@ return {
     build = ":TSUpdate",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
-        -- see `:help nvim-treesitter`
-        -- defer Treesitter setup after first render to improve startup time of "nvim {filename}"
+        -- load treesitter only after first render of a buffer has completed
+        -- (defer setup for 0ms)
         vim.defer_fn(function()
             require("nvim-treesitter.configs").setup {
-                -- add languages for treesitter here
-                ensure_installed = { "c", "cpp", "go", "lua", "python", "rust", "tsx", "javascript", "typescript", "vimdoc", "vim", "bash" },
-
-                -- autoinstall languages that are not installed
+                ensure_installed = {
+                    "c", "cpp", "go", "lua", "python", "rust", "tsx", "javascript",
+                    "typescript", "vimdoc", "vim", "bash", "markdown"
+                },
                 auto_install = true,
-
-                -- no synchronous installations
                 sync_install = false,
-
-                ignore_install = {},
-                modules = {},
-
                 highlight = {
                     enable = true,
                     additional_vim_regex_highlighting = false,
