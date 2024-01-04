@@ -1,7 +1,10 @@
 local state = vim.fn.stdpath("state")
 
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+vim.g.mapleader = ","
+vim.g.maplocalleader = ","
+
+-- time in ms before keymap sequence is completed
+vim.opt.timeoutlen = 1000
 
 -- modify formatoptions for all buffers
 vim.api.nvim_create_autocmd("BufEnter", {
@@ -52,9 +55,9 @@ vim.opt.softtabstop = 4
 -- render space for column even if it has no content (prevents text from shifting)
 -- vim.opt.signcolumn = "yes"
 
--- decrease update time
-vim.opt.updatetime = 50
-vim.opt.timeoutlen = 300
+-- time in ms if nothing is typed to write to swap and trigger `CursorHold` autocmd event
+-- (for example, showing completions on hover)
+vim.opt.updatetime = 1000
 
 vim.opt.hidden = true
 
