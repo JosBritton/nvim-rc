@@ -12,8 +12,25 @@ return {
             untracked    = { text = "┆" },
         },
         on_attach = function(bufnr)
-            vim.keymap.set("n", "<leader>hp", require("gitsigns").preview_hunk,
+            vim.keymap.set({ "n", "v" }, "<leader>hs", require("gitsigns").stage_hunk,
+                { buffer = bufnr, desc = "Stage git hunk" })
+            vim.keymap.set({ "n", "v" }, "<leader>hr", require("gitsigns").reset_hunk,
+                { buffer = bufnr, desc = "Reset git hunk" })
+            vim.keymap.set({ "n", "v" }, '<leader>hS', require("gitsigns").stage_buffer,
+                { buffer = bufnr, desc = "Stage git buffer" })
+            vim.keymap.set({ "n", "v" }, '<leader>hu', require("gitsigns").undo_stage_hunk,
+                { buffer = bufnr, desc = "Undo stage git hunk" })
+            vim.keymap.set({ "n", "v" }, '<leader>hR', require("gitsigns").reset_buffer,
+                { buffer = bufnr, desc = "Reset git buffer" })
+            vim.keymap.set({ "n", "v" }, '<leader>hp', require("gitsigns").preview_hunk,
                 { buffer = bufnr, desc = "Preview git hunk" })
+            vim.keymap.set({ "n", "v" }, '<leader>tb', require("gitsigns").toggle_current_line_blame,
+                { buffer = bufnr, desc = "Toggle current git blame line" })
+            vim.keymap.set({ "n", "v" }, '<leader>td', require("gitsigns").toggle_deleted,
+                { buffer = bufnr, desc = "Git toggle deleted" })
+            vim.keymap.set({ "o", "x", "v" }, "ih", require("gitsigns").select_hunk,
+                { buffer = bufnr, desc = "Select git hunk from text object" })
+
 
             -- don't override the built-in and fugitive keymaps
             local gs = package.loaded.gitsigns
