@@ -3,9 +3,10 @@ return {
     branch = "0.1.x",
     dependencies = {
         "nvim-lua/plenary.nvim",
-        -- fuzzy finder algorithm which requires local dependencies to be built.
-        -- only load if `make` is available. Make sure you have the system
-        -- requirements installed.
+        -- install real fzf
+        { "junegunn/fzf", build = "./install --all" },
+        -- install c port of fzf for telescope only if `make` is available
+        -- (does not require real fzf)
         {
             "nvim-telescope/telescope-fzf-native.nvim",
             build = "make",
