@@ -12,10 +12,20 @@ return {
             untracked    = { text = "┆" },
         },
         on_attach = function(bufnr)
-            vim.keymap.set({ "n", "v" }, "<leader>hs", require("gitsigns").stage_hunk,
+            vim.keymap.set("n", "<leader>hs", require("gitsigns").stage_hunk,
                 { buffer = bufnr, desc = "Stage git hunk" })
-            vim.keymap.set({ "n", "v" }, "<leader>hr", require("gitsigns").reset_hunk,
+            vim.keymap.set("v", "<leader>hs", function()
+                require("gitsigns").stage_hunk
+                { vim.fn.line("."), vim.fn.line("v") }
+            end, { buffer = bufnr, desc = "Stage git hunk" })
+
+            vim.keymap.set("n", "<leader>hr", require("gitsigns").reset_hunk,
                 { buffer = bufnr, desc = "Reset git hunk" })
+            vim.keymap.set("v", "<leader>hr", function()
+                require("gitsigns").reset_hunk
+                { vim.fn.line("."), vim.fn.line("v") }
+            end, { buffer = bufnr, desc = "Reset git hunk" })
+
             vim.keymap.set({ "n", "v" }, '<leader>hS', require("gitsigns").stage_buffer,
                 { buffer = bufnr, desc = "Stage git buffer" })
             vim.keymap.set({ "n", "v" }, '<leader>hu', require("gitsigns").undo_stage_hunk,
