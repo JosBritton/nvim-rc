@@ -39,8 +39,6 @@ vim.opt.relativenumber = true
 
 vim.opt.mouse = "a"
 
-vim.opt.mouse = "a"
-
 -- use OS clipboard
 vim.opt.clipboard = "unnamedplus"
 -- https://github.com/neovim/neovim/issues/23650
