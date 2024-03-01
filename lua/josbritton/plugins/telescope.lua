@@ -4,7 +4,7 @@ return {
     dependencies = {
         "nvim-lua/plenary.nvim",
         -- install real fzf
-        { "junegunn/fzf", build = "./install --all" },
+        --{ "junegunn/fzf", build = "./install --completion --key-bindings --no-update-rc" },
         -- install c port of fzf for telescope only if `make` is available
         -- (does not require real fzf)
         {
