@@ -41,7 +41,6 @@ return {
             vim.keymap.set({ "o", "x", "v" }, "ih", require("gitsigns").select_hunk,
                 { buffer = bufnr, desc = "Select git hunk from text object" })
 
-
             -- don't override the built-in and fugitive keymaps
             local gs = package.loaded.gitsigns
             vim.keymap.set({ "n", "v" }, "]c", function()
