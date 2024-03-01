@@ -79,8 +79,6 @@ vim.opt.signcolumn = "yes"
 -- (for example, showing completions on hover)
 vim.opt.updatetime = 1000
 
-vim.opt.hidden = true
-
 vim.opt.completeopt = { "menuone", "noselect" }
 
 vim.opt.termguicolors = true
@@ -90,7 +88,17 @@ vim.opt.wrap = false
 -- vim.o.cursorline = true
 vim.opt.backspace = { "indent", "eol", "start" }
 
-vim.opt.scrolloff = 8
+vim.opt.scrolloff = 14
 
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
+
+vim.filetype.add({
+    extension = {
+        mdx = "mdx",
+        conf = "conf",
+    },
+    filename = {
+        [".yamllint"] = "yaml"
+    },
+})
