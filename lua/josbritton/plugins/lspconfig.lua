@@ -1,6 +1,7 @@
 return {
     "neovim/nvim-lspconfig",
     dependencies = {
+        "b0o/schemastore.nvim",
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
         -- useful status updates for LSP
@@ -69,6 +70,8 @@ return {
         require("mason").setup()
         require("mason-lspconfig").setup()
 
+        require("lspconfig").ansiblels.setup {}
+
         -- enable the following language servers
         --  feel free to add/remove any LSPs that you want here. They will automatically be installed.
         --
@@ -92,6 +95,14 @@ return {
                     diagnostics = { disable = { "missing-fields" } },
                 },
             },
+            jsonls = {
+                settings = {
+                    json = {
+                        schemas = require("schemastore").json.schemas(),
+                        validate = { enable = true },
+                    },
+                },
+            }
         }
 
         -- setup neovim lua configuration
