@@ -14,11 +14,10 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     pattern = "*",
 })
 
-vim.keymap.set("n", "<leader>pv",
-    vim.cmd.Ex,
-    -- "<Cmd>echo 'Use fuzzy finder with <C-p> instead.'<CR>",
-    { desc = "Open Netrw" }
-)
+-- vim.keymap.set("n", "<leader>pv",
+--     vim.cmd.Ex,
+--     { desc = "Open Netrw" }
+-- )
 
 vim.keymap.set({ "c", "i" }, "<C-BS>", "<C-S-W>", { noremap = true, desc = "Delete word" })
 vim.keymap.set({ "c", "i" }, "<C-h>", "<C-S-W>", { noremap = true, desc = "Delete word" })
