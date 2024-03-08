@@ -3,8 +3,7 @@ return {
     branch = "0.1.x",
     dependencies = {
         "nvim-lua/plenary.nvim",
-        -- install real fzf
-        --{ "junegunn/fzf", build = "./install --completion --key-bindings --no-update-rc" },
+        "nvim-tree/nvim-web-devicons",
         -- install c port of fzf for telescope only if `make` is available
         -- (does not require real fzf)
         {
