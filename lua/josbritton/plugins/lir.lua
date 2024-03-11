@@ -20,7 +20,7 @@ return {
                 ["-"]    = actions.up,
 
                 ["K"]    = actions.mkdir,
-                ["N"]    = actions.newfile,
+                ["%"]    = actions.newfile,
                 ["R"]    = actions.rename,
                 ["Y"]    = actions.yank_path,
                 ["D"]    = actions.delete,
