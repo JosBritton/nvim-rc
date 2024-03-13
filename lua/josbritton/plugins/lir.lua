@@ -19,7 +19,7 @@ return {
                 ["<CR>"] = actions.edit,
                 ["-"]    = actions.up,
 
-                ["K"]    = actions.mkdir,
+                ["d"]    = actions.mkdir,
                 ["%"]    = actions.newfile,
                 ["R"]    = actions.rename,
                 ["Y"]    = actions.yank_path,
