@@ -15,7 +15,7 @@ return {
         },
     },
     keys = {
-        { "<leader>?",  "<cmd>Telescope oldfiles<CR>",   desc = "[?] Find recently opened files" },
+        { "<leader>?",  "<cmd>Telescope oldfiles<CR>",               desc = "[?] Find recently opened files" },
         -- { "<leader><space>", "<cmd>Telescope buffers<CR>", desc = "[ ] Find existing buffers" },
         {
             "<leader>/",
@@ -28,9 +28,8 @@ return {
             end,
             desc = "[/] Fuzzily search in current buffer"
         },
-        { "<C-p>",      "<cmd>Telescope git_files<CR>",  desc = "Search Git Files" },
-        { "<leader>pf", "<cmd>Telescope find_files<CR>", desc = "Search [P]roject [F]iles" },
-        { "<leader>ps", "<cmd>Telescope live_grep<CR>",  desc = "Search [P]roject by Grep [S]tring" },
+        { "<C-p>",      "<cmd>Telescope find_files hidden=true<CR>", desc = "Search [P]roject by filename" },
+        { "<leader>ps", "<cmd>Telescope live_grep<CR>",              desc = "Search [P]roject by Grep [S]tring" },
 
         -- { "<leader>sh", "<cmd>Telescope help_tags<CR>",   desc = "[S]earch [H]elp" },
         -- { "<leader>sw", "<cmd>Telescope grep_string<CR>", desc = "[S]earch current [W]ord" },
