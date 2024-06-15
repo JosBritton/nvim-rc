@@ -84,7 +84,6 @@ local function lsp_name(active)
     return hl("LspName", active) .. table.concat(names, ",")
 end
 
-vim.diagnostic.count()
 --- @param active 0|1
 --- @return string?
 local function diagnostics(active)
