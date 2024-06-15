@@ -4,10 +4,45 @@ return {
         "nvim-treesitter/nvim-treesitter-textobjects",
     },
     build = ":TSUpdate",
-    event = { "BufReadPre", "BufNewFile" },
+    event = { "BufReadPre", "BufNewFile", "FileReadPre" },
+    cmd = {
+        -- :h nvim-treesitter-commands
+        "TSInstall",
+        "TSInstallSync",
+        "TSInstallInfo",
+        "TSUpdate",
+        "TSUpdateSync",
+        "TSUninstall",
+        "TSBufEnable",
+        "TSBufDisable",
+        "TSBufToggle",
+        "TSEnable",
+        "TSDisable",
+        "TSToggle",
+        "TSModuleInfo",
+        "TSEditQuery",
+        "TSEditQueryUserAfter",
+
+        "TSTextobjectSwapNext",
+        "TSTextobjectSwapPrevious",
+        "TSTextobjectGotoNextStart",
+        "TSTextobjectGotoNextEnd",
+        "TSTextobjectGotoPreviousStart",
+        "TSTextobjectGotoPreviousEnd",
+        "TSTextobjectRepeatLastMove",
+        "TSTextobjectRepeatLastMoveOpposite",
+        "TSTextobjectRepeatLastMoveNext",
+        "TSTextobjectRepeatLastMovePrevious",
+        "TSTextobjectBuiltinf",
+        "TSTextobjectBuiltinF",
+        "TSTextobjectBuiltint",
+        "TSTextobjectBuiltinT",
+        "TSTextobjectPeekDefinitionCode",
+        "TSTextobjectSelect",
+    },
+    -- load treesitter only after first render of a buffer has completed
+    -- (defer setup for 0ms)
     config = function()
-        -- load treesitter only after first render of a buffer has completed
-        -- (defer setup for 0ms)
         vim.defer_fn(function()
             require("nvim-treesitter.configs").setup {
                 ensure_installed = {
@@ -18,9 +53,12 @@ return {
                 sync_install = false,
                 highlight = {
                     enable = true,
-                    additional_vim_regex_highlighting = false,
+                    additional_vim_regex_highlighting = { "ruby" },
                 },
-                indent = { enable = true },
+                indent = {
+                    enable = true,
+                    disable = { "ruby" },
+                },
                 incremental_selection = {
                     enable = true,
                     keymaps = {

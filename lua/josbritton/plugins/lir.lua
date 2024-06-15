@@ -1,13 +1,20 @@
 return {
     "tamago324/lir-git-status.nvim",
     dependencies = {
-        "tamago324/lir.nvim",
+        "JosBritton/lir.nvim",
         "nvim-tree/nvim-web-devicons",
         "nvim-lua/plenary.nvim",
     },
     config = function()
-        local actions = require("lir.actions")
+        require("nvim-web-devicons").set_icon {
+            lir_folder_icon = {
+                icon = "",
+                color = "#7ebae4",
+                name = "LirFolderNode"
+            },
+        }
 
+        local actions = require("lir.actions")
         require("lir").setup {
             show_hidden_files = true,
             ignore = {},
@@ -26,22 +33,18 @@ return {
                 ["D"]    = actions.delete,
                 ["."]    = actions.toggle_show_hidden,
             },
-            hide_cursor = false
+            hide_cursor = true,
         }
 
-        require("lir.git_status").setup {
-            show_ignored = false,
-        }
+        vim.schedule(function()
+            vim.keymap.set("n", "<leader>pv", "<cmd>edit %:h<CR>",
+                { noremap = true, silent = true, desc = "Open file explorer" })
 
-        require("nvim-web-devicons").set_icon {
-            lir_folder_icon = {
-                icon = "",
-                color = "#7ebae4",
-                name = "LirFolderNode"
-            },
-        }
+            require("lir.git_status").setup {
+                show_ignored = false,
+            }
 
-        vim.keymap.set("n", "<leader>pv", "<cmd>edit %:h<CR>",
-            { noremap = true, silent = true, desc = "Open file explorer" })
+            vim.cmd.e() -- reload buffer
+        end)
     end,
 }
