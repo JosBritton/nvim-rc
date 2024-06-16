@@ -36,15 +36,11 @@ return {
             hide_cursor = true,
         }
 
-        vim.schedule(function()
-            vim.keymap.set("n", "<leader>pv", "<cmd>edit %:h<CR>",
-                { noremap = true, silent = true, desc = "Open file explorer" })
+        vim.keymap.set("n", "<leader>pv", "<cmd>edit %:h<CR>",
+            { noremap = true, silent = true, desc = "Open file explorer" })
 
-            require("lir.git_status").setup {
-                show_ignored = false,
-            }
-
-            vim.cmd.e() -- reload buffer
-        end)
+        require("lir.git_status").setup({
+            show_ignored = false
+        })
     end,
 }
