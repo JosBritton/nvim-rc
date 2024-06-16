@@ -5,6 +5,10 @@ return {
         "nvim-tree/nvim-web-devicons",
         "nvim-lua/plenary.nvim",
     },
+    event = "User DirEnter",
+    keys = {
+        { "<leader>pv", nil, desc = "Open file explorer" },
+    },
     config = function()
         require("nvim-web-devicons").set_icon {
             lir_folder_icon = {
