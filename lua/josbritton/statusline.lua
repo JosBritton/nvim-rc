@@ -119,6 +119,9 @@ function M.lsp_status(active)
     return table.concat(status, " ")
 end
 
+---@type boolean
+local gitsigns_color_enabled = false
+
 ---@param status josbritton.StatusObj
 ---@param active 0|1
 ---@return string
@@ -132,11 +135,11 @@ local gitsigns_formatter = function(status, active)
         ---@type integer?
         local field = status[attrs[4]]
         if field and field > 0 then
-            table.insert(segments, table.concat({
-                hl(attrs[3], active),
-                attrs[2],
-                field
-            }))
+            local prefix = attrs[2]
+            if gitsigns_color_enabled then
+                prefix = hl(attrs[3], active) .. prefix
+            end
+            table.insert(segments, prefix .. field)
         end
     end
 
