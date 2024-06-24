@@ -63,6 +63,7 @@ vim.keymap.set("v", "<A-k>", "<Cmd>m '>-2<CR>gv=gv", { noremap = true, desc = "M
 vim.keymap.set("n", "Q", "<Nop>")
 
 vim.keymap.set("n", "<C-f>", "<Cmd>silent !tmux neww switchproj<CR>")
+vim.keymap.set("n", "<C-j>", "<Cmd>silent !tmux neww tmuxopensesh<CR>")
 vim.keymap.set("n", "<C-Space>", "<Cmd>silent !scratchtmux<CR>")
 
 -- vim.keymap.set("n", "<C-k>", "<Cmd>cnext<CR>zz", { desc = "Quickfix nav next"})
