@@ -46,6 +46,12 @@ return {
                     },
                 },
             },
+            pickers = {
+                find_files = {
+                    -- default picker ignores fd ignore file
+                    find_command = { "fd", "--type", "f"}
+                }
+            }
         }
 
         if vim.fn.executable "rg" ~= 1 then
