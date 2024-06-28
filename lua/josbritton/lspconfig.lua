@@ -103,7 +103,6 @@ function M.setup()
 
     local servers = {
         "stylua",
-        "ansiblels",
         lua_ls = {
             settings = {
                 Lua = {
