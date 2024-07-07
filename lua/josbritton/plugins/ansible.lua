@@ -1,5 +1,5 @@
 return {
     "pearofducks/ansible-vim",
-    ft = "yaml.ansible",
+    ft = { "yaml.ansible", "jinja2" },
     lazy = true,
 }
