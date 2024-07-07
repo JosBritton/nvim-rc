@@ -154,6 +154,13 @@ return {
 
         require("mason").setup({
             max_concurrent_installers = 10,
+            ui = {
+                icons = {
+                    package_installed = "󰄳 ",
+                    package_pending = " ",
+                    package_uninstalled = "󰄯 "
+                }
+            }
         })
 
         local ensure_installed = vim.tbl_keys(servers or {})
