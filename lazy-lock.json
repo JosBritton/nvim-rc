@@ -26,6 +26,7 @@
   "nvim-juliana": { "branch": "master", "commit": "d29a4e0f0971a9f0cc41599882114b7a82e41796" },
   "nvim-lint": { "branch": "master", "commit": "27f44d1cc3d733a38a736acb902f94879d99c76c" },
   "nvim-lspconfig": { "branch": "master", "commit": "ff69ecca55d83ffc70657f260a799f79a5637831" },
+  "nvim-navic": { "branch": "master", "commit": "8649f694d3e76ee10c19255dece6411c29206a54" },
   "nvim-treesitter": { "branch": "master", "commit": "9b1e607298dd5fc2ee6549488324cc92dafb99c0" },
   "nvim-treesitter-textobjects": { "branch": "master", "commit": "b91c98afa6c42819aea6cbc1ba38272f5456a5cf" },
   "nvim-web-devicons": { "branch": "master", "commit": "56f17def81478e406e3a8ec4aa727558e79786f3" },
