@@ -121,3 +121,8 @@ vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_netrwSettings = 1
 
 vim.g.loaded_netrwFileHandlers = 1
+
+local ok, _ = pcall(vim.cmd.colorscheme, "juliana")
+if not ok then
+    vim.cmd.colorscheme("default")
+end
