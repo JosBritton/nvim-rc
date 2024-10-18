@@ -16,11 +16,8 @@ return {
         "WhoIsSethDaniel/mason-tool-installer.nvim",
         { "j-hui/fidget.nvim",       opts = {} }, -- status UI when loading LSP
         { "folke/neodev.nvim",       opts = {} },
-        "SmiteshP/nvim-navic"
     },
     config = function()
-        local navic = require("nvim-navic")
-
         ---@type integer
         local id = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true })
         vim.api.nvim_create_autocmd("LspAttach", {
@@ -90,33 +87,6 @@ return {
                     end, "[T]oggle Inlay [H]ints")
                 end
 
-                if client and client.server_capabilities.documentSymbolProvider then
-                    navic.attach(client, ev.buf)
-
-                    local bar = "%{%v:lua.require'nvim-navic'.get_location()%}"
-
-                    -- wait for LSP to fully progress before showing bar
-                    vim.api.nvim_create_autocmd("LspProgress", {
-                        pattern = "end",
-                        once = true,
-                        callback = function()
-                            for _, win_handle in ipairs(vim.api.nvim_list_wins()) do
-                                if vim.api.nvim_win_get_buf(win_handle) == ev.buf then
-                                    vim.wo[win_handle].winbar = bar
-                                end
-                            end
-
-                            -- does not handle cases where an LSP is assigned to multiple neovim filetypes?
-                            vim.api.nvim_create_autocmd("FileType", {
-                                pattern = vim.bo[ev.buf].filetype,
-                                callback = function()
-                                    vim.wo.winbar = bar
-                                end
-                            })
-                        end,
-                    })
-                end
-
                 -- if client and client.server_capabilities.documentFormattingProvider and client.name ~= "tsserver" then
                 --     -- create an autocmd that will run *before* we save the buffer.
                 --     --  run the formatting command for the LSP that has just attached.
@@ -183,83 +153,6 @@ return {
                     -- staticcheck = true
                 }
             }
-        }
-
-        navic.setup {
-            icons = {
-                File          = "󰈙 ",
-                Module        = " ",
-                Namespace     = "󰌗 ",
-                Package       = " ",
-                Class         = "󰌗 ",
-                Method        = "󰆧 ",
-                Property      = " ",
-                Field         = " ",
-                Constructor   = " ",
-                Enum          = "󰕘",
-                Interface     = "󰕘",
-                Function      = "󰊕 ",
-                Variable      = "󰆧 ",
-                Constant      = "󰏿 ",
-                String        = "󰀬 ",
-                Number        = "󰎠 ",
-                Boolean       = "◩ ",
-                Array         = "󰅪 ",
-                Object        = "󰅩 ",
-                Key           = "󰌋 ",
-                Null          = "󰟢 ",
-                EnumMember    = " ",
-                Struct        = "󰌗 ",
-                Event         = " ",
-                Operator      = "󰆕 ",
-                TypeParameter = "󰊄 ",
-            },
-            -- VSCode like icons
-            -- requires `codicon.ttf` patched font
-            -- https://github.com/microsoft/vscode-codicons/releases/latest/download/codicon.ttf
-            --
-            -- icons = {
-            --     File = ' ',
-            --     Module = ' ',
-            --     Namespace = ' ',
-            --     Package = ' ',
-            --     Class = ' ',
-            --     Method = ' ',
-            --     Property = ' ',
-            --     Field = ' ',
-            --     Constructor = ' ',
-            --     Enum = ' ',
-            --     Interface = ' ',
-            --     Function = ' ',
-            --     Variable = ' ',
-            --     Constant = ' ',
-            --     String = ' ',
-            --     Number = ' ',
-            --     Boolean = ' ',
-            --     Array = ' ',
-            --     Object = ' ',
-            --     Key = ' ',
-            --     Null = ' ',
-            --     EnumMember = ' ',
-            --     Struct = ' ',
-            --     Event = ' ',
-            --     Operator = ' ',
-            --     TypeParameter = ' '
-            -- },
-            lsp = {
-                auto_attach = false,
-                preference = nil,
-            },
-            highlight = true,
-            separator = " > ",
-            depth_limit = 0,
-            depth_limit_indicator = "..",
-            safe_output = true,
-            lazy_update_context = false,
-            click = false,
-            format_text = function(text)
-                return text
-            end,
         }
 
         require("mason").setup({
