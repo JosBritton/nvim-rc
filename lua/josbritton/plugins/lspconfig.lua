@@ -172,13 +172,17 @@ return {
                 },
             },
             gopls = {
-                completeUnimported = true,
-                usePlaceholders = true,
-                analyses = {
-                    unusedvariable = true,
-                    useany = true,
-                },
-            },
+                settings = {
+                    completeUnimported = true,
+                    usePlaceholders = true,
+                    analyses = {
+                        unusedvariable = true,
+                        useany = true,
+                    },
+                    -- gofumpt = true,
+                    -- staticcheck = true
+                }
+            }
         }
 
         navic.setup {
