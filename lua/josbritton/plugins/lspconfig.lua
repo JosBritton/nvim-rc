@@ -87,22 +87,54 @@ return {
                     end, "[T]oggle Inlay [H]ints")
                 end
 
-                -- if client and client.server_capabilities.documentFormattingProvider and client.name ~= "tsserver" then
-                --     -- create an autocmd that will run *before* we save the buffer.
-                --     --  run the formatting command for the LSP that has just attached.
-                --     vim.api.nvim_create_autocmd("BufWritePre", {
-                --         group = id,
-                --         buffer = ev.buf,
-                --         callback = function()
-                --             vim.lsp.buf.format {
-                --                 async = false,
-                --                 filter = function(c)
-                --                     return c.id == client.id
-                --                 end,
-                --             }
-                --         end,
-                --     })
-                -- end
+                if not (client and client.server_capabilities.documentFormattingProvider)
+                    or client.name == "tsserver" then
+                    return
+                end
+
+                -- organize Go imports before write
+                if client.name == "gopls" then
+                    vim.api.nvim_create_autocmd("BufWritePre", {
+                        group = id,
+                        buffer = ev.buf,
+                        callback = function()
+                            local params = vim.lsp.util.make_range_params()
+                            params.context = { only = { "source.organizeImports" } }
+
+                            local result, _ = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 1000) -- 1000 ms timeout
+                            for cid, res in pairs(result or {}) do
+                                for _, r in pairs(res.result or {}) do
+                                    if r.edit then
+                                        local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-16"
+                                        vim.lsp.util.apply_workspace_edit(r.edit, enc)
+                                    end
+                                end
+                            end
+                            vim.lsp.buf.format {
+                                async = false,
+                                filter = function(c)
+                                    return c.id == client.id
+                                end,
+                            }
+                        end,
+                    })
+                    return
+                end
+
+                -- -- create an autocmd that will run *before* we save the buffer.
+                -- --  run the formatting command for the LSP that has just attached.
+                -- vim.api.nvim_create_autocmd("BufWritePre", {
+                --     group = id,
+                --     buffer = ev.buf,
+                --     callback = function()
+                --         vim.lsp.buf.format {
+                --             async = false,
+                --             filter = function(c)
+                --                 return c.id == client.id
+                --             end,
+                --         }
+                --     end,
+                -- })
             end,
         })
 
