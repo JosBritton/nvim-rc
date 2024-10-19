@@ -4,7 +4,7 @@ vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 
 -- time in ms before keymap sequence is completed
-vim.opt.timeoutlen = 1000
+vim.opt.timeoutlen = 300
 
 -- override formatoptions for all buffers
 vim.api.nvim_create_autocmd("BufEnter", {
