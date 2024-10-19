@@ -37,26 +37,25 @@ local function on_attach(bufnr)
 
     map({ "o", "x", "v" }, "ih", gitsigns.select_hunk, { desc = "Select git hunk from text object" })
 
-    -- don't override the built-in and fugitive keymaps
-    local gs = package.loaded.gitsigns
-    map({ "n", "v" }, "]c", function()
+    map("n", "]c", function()
         if vim.wo.diff then
-            return "]c"
+	    vim.cmd.normal({ "]c", bang = true })
+	else
+	    vim.schedule(function()
+	        gitsigns.nav_hunk("next")
+	    end)
         end
-        vim.schedule(function()
-            gs.next_hunk()
-        end)
-        return "<Ignore>"
-    end, { expr = true, desc = "Jump to next hunk" })
-    map({ "n", "v" }, "[c", function()
+    end, { desc = "Jump to next hunk" })
+
+    map("n", "[c", function()
         if vim.wo.diff then
-            return "[c"
+	    vim.cmd.normal({ "[c", bang = true })
+	else
+            vim.schedule(function()
+                gitsigns.nav_hunk("previous")
+            end)
         end
-        vim.schedule(function()
-            gs.prev_hunk()
-        end)
-        return "<Ignore>"
-    end, { expr = true, desc = "Jump to previous hunk" })
+    end, { desc = "Jump to previous hunk" })
 
     map('n', '<leader>hb', function()
         gitsigns.blame_line({ full = true })
