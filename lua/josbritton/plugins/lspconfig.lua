@@ -89,7 +89,7 @@ return {
                 end
 
                 if not (client and client.server_capabilities.documentFormattingProvider)
-                    or client.name == "tsserver" then
+                    or client.name == "ts_ls" then
                     return
                 end
 
