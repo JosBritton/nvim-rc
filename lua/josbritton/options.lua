@@ -43,8 +43,12 @@ vim.opt.relativenumber = true
 
 vim.opt.mouse = "a"
 
--- use OS clipboard
-vim.opt.clipboard = "unnamedplus"
+-- use and sync nvim clipboard to OS clipboard
+--  schedule the setting after `UiEnter` because it can increase startup-time
+vim.schedule(function()
+    vim.opt.clipboard = "unnamedplus"
+end)
+
 -- https://github.com/neovim/neovim/issues/23650
 --vim.g.netrw_banner = 0
 
