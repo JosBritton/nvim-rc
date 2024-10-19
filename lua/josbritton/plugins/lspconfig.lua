@@ -11,11 +11,12 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = {
         "b0o/schemastore.nvim",
-        { "williamboman/mason.nvim", config = true }, -- NOTE: Must be loaded before dependants
+        { "williamboman/mason.nvim",    config = true }, -- NOTE: Must be loaded before dependants
         "williamboman/mason-lspconfig.nvim",
         "WhoIsSethDaniel/mason-tool-installer.nvim",
-        { "j-hui/fidget.nvim",       opts = {} }, -- status UI when loading LSP
-        { "folke/neodev.nvim",       opts = {} },
+        { "j-hui/fidget.nvim",          opts = {} }, -- status UI when loading LSP
+        { "folke/neodev.nvim",          opts = {} },
+        { "microsoft/python-type-stubs" },
     },
     config = function()
         ---@type integer
@@ -184,6 +185,16 @@ return {
                     -- gofumpt = true,
                     -- staticcheck = true
                 }
+            },
+            pyright = {
+                -- adds all the VSCode msoft type stubs to your pyright env
+                -- might not be a great idea
+                before_init = function(_, config)
+                    ---@type string
+                    ---@diagnostic disable-next-line:assign-type-mismatch
+                    local std_data = vim.fn.stdpath("data")
+                    config.settings.python.analysis.stubPath = vim.fs.joinpath(std_data, "lazy", "python-type-stubs")
+                end
             }
         }
 
