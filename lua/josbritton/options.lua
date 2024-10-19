@@ -97,6 +97,9 @@ vim.opt.scrolloff = 14
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
 
+vim.opt.list = true
+vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+
 vim.filetype.add({
     extension = {
         mdx = "mdx",
