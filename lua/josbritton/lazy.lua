@@ -1,13 +1,13 @@
-local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.uv.fs_stat(lazypath) then
-    vim.fn.system {
+    vim.fn.system({
         "git",
         "clone",
         "--filter=blob:none",
         "https://github.com/folke/lazy.nvim.git",
         "--branch=stable", -- latest stable release
         lazypath,
-    }
+    })
 end
 
 ---@diagnostic disable-next-line: undefined-field
@@ -22,20 +22,23 @@ vim.api.nvim_create_autocmd("BufEnter", {
         if res and res.type == "directory" then
             vim.api.nvim_del_augroup_by_id(id)
             vim.cmd("do User DirEnter")
-            vim.api.nvim_exec_autocmds(args.event, { buffer = args.buf, data = args.data })
+            vim.api.nvim_exec_autocmds(
+                args.event,
+                { buffer = args.buf, data = args.data }
+            )
         end
-    end
+    end,
 })
 
 require("lazy").setup("josbritton.plugins", {
     install = {
-        colorscheme = { "juliana" }
+        colorscheme = { "juliana" },
     },
     checker = {
         enabled = true,
-        notify = false
+        notify = false,
     },
     change_detection = {
-        notify = false
+        notify = false,
     },
 })

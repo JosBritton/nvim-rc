@@ -34,12 +34,12 @@ local DIAG_ATTRS = {
     { "Error", "󰅚", "DiagnosticErrorStatus" },
     { "Warn", "󰀪", "DiagnosticWarnStatus" },
     { "Info", "󰋽", "DiagnosticInfoStatus" },
-    { "Hint", "󰌶", "DiagnosticHintStatus" }
+    { "Hint", "󰌶", "DiagnosticHintStatus" },
 }
 local GITSIGN_ATTRS = {
-    { "Add",    "+", "GitSignsAddStatus",    "added" },
+    { "Add", "+", "GitSignsAddStatus", "added" },
     { "Change", "~", "GitSignsChangeStatus", "changed" },
-    { "Delete", "-", "GitSignsDeleteStatus", "deleted" }
+    { "Delete", "-", "GitSignsDeleteStatus", "deleted" },
 }
 
 local function hldefs()
@@ -186,7 +186,8 @@ local function filetype_symbol(active)
     ---@type string
     local name = vim.api.nvim_buf_get_name(0)
     ---@type string, string
-    local icon, iconhl = devicons.get_icon_color(name, vim.bo.filetype, { default = true })
+    local icon, iconhl =
+        devicons.get_icon_color(name, vim.bo.filetype, { default = true })
 
     ---@type string
     local hlname = iconhl:gsub("#", "Status")
@@ -239,10 +240,12 @@ end
 function M.bufname()
     local buf_name = vim.api.nvim_buf_get_name(0) ---@type string
     if vim.startswith(buf_name, "fugitive://") then
-        local _, _, revision, relpath = buf_name:find([[^fugitive://.*/%.git.*/(%x-)/(.*)]])
+        local _, _, revision, relpath =
+            buf_name:find([[^fugitive://.*/%.git.*/(%x-)/(.*)]])
         return relpath .. "@" .. revision:sub(1, 7)
     elseif vim.startswith(buf_name, "gitsigns://") then
-        local _, _, revision, relpath = buf_name:find([[^gitsigns://.*/%.git.*/(.*):(.*)]])
+        local _, _, revision, relpath =
+            buf_name:find([[^gitsigns://.*/%.git.*/(.*):(.*)]])
         return relpath .. "@" .. revision:sub(1, 7)
     end
 
@@ -297,7 +300,13 @@ local F = setmetatable({}, {
         t[name] = function(active, mods) ---@type function
             active = active or 1
             mods = mods or ""
-            return "%" .. mods .. "{%v:lua.statusline." .. name .. "(" .. tostring(active) .. ")%}"
+            return "%"
+                .. mods
+                .. "{%v:lua.statusline."
+                .. name
+                .. "("
+                .. tostring(active)
+                .. ")%}"
         end
         return t[name]
     end,
@@ -390,7 +399,7 @@ vim.api.nvim_create_autocmd({
     "BufNewFile",
     "BufReadPost",
     "FilterReadPost",
-    "FileReadPost"
+    "FileReadPost",
 }, {
     group = group,
     once = true,
@@ -398,11 +407,11 @@ vim.api.nvim_create_autocmd({
         vim.api.nvim_create_autocmd("User", {
             pattern = "GitSignsUpdate",
             group = group,
-            callback = redrawstatus
+            callback = redrawstatus,
         })
         vim.api.nvim_create_autocmd("DiagnosticChanged", {
             group = group,
-            callback = redrawstatus
+            callback = redrawstatus,
         })
     end,
 })

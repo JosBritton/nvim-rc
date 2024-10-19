@@ -5,11 +5,11 @@ return {
         {
             "L3MON4D3/LuaSnip",
             build = (function()
-                if vim.fn.has "win32" == 1 or vim.fn.executable "make" == 0 then
+                if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
                     return
                 end
                 return "make install_jsregexp"
-            end)()
+            end)(),
         },
         "saadparwaiz1/cmp_luasnip",
         "hrsh7th/cmp-nvim-lsp",
@@ -17,20 +17,20 @@ return {
         "hrsh7th/cmp-nvim-lsp-signature-help",
     },
     config = function()
-        local cmp = require "cmp"
-        local luasnip = require "luasnip"
-        luasnip.config.setup {}
+        local cmp = require("cmp")
+        local luasnip = require("luasnip")
+        luasnip.config.setup({})
 
-        cmp.setup {
+        cmp.setup({
             snippet = {
                 expand = function(args)
                     luasnip.lsp_expand(args.body)
                 end,
             },
             completion = {
-                completeopt = "menu,menuone,noinsert"
+                completeopt = "menu,menuone,noinsert",
             },
-            mapping = cmp.mapping.preset.insert {
+            mapping = cmp.mapping.preset.insert({
                 -- select the [n]ext item
                 ["<C-n>"] = cmp.mapping.select_next_item(),
                 -- select the [p]revious item
@@ -43,18 +43,18 @@ return {
                 -- accept ([y]es) the completion.
                 --  This will auto-import if your LSP supports it.
                 --  This will expand snippets if the LSP sent a snippet.
-                ["<C-y>"] = cmp.mapping.confirm {
+                ["<C-y>"] = cmp.mapping.confirm({
                     behavior = cmp.ConfirmBehavior.Replace,
                     select = true,
-                },
-                ["<CR>"] = cmp.mapping.confirm {
+                }),
+                ["<CR>"] = cmp.mapping.confirm({
                     behavior = cmp.ConfirmBehavior.Replace,
                     select = true,
-                },
+                }),
                 -- manually trigger a completion from nvim-cmp.
                 --  generally you don't need this, because nvim-cmp will display
                 --  completions whenever it has completion options available.
-                ["<C-Space>"] = cmp.mapping.complete {},
+                ["<C-Space>"] = cmp.mapping.complete({}),
 
                 -- NOTE: <C-h> is the control code for ctrl+backspace
                 --
@@ -70,13 +70,13 @@ return {
                 --         luasnip.jump(-1)
                 --     end
                 -- end, { "i", "s" }),
-            },
+            }),
             sources = {
                 { name = "nvim_lsp" },
                 { name = "luasnip" },
                 { name = "path" },
                 { name = "nvim_lsp_signature_help" },
             },
-        }
+        })
     end,
 }

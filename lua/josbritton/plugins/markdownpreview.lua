@@ -3,6 +3,6 @@ return {
     build = "cd app && yarn install",
     ft = "markdown",
     cond = function()
-        return vim.fn.executable "yarn" == 1
+        return vim.fn.executable("yarn") == 1
     end,
 }

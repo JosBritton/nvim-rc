@@ -15,8 +15,12 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
 -- ignore compiled files
 vim.opt.wildignore:append({
-    "*.o", "*~", "*.pyc", "*pycache*",
-    "Cargo.lock", "Cargo.Bazel.lock"
+    "*.o",
+    "*~",
+    "*.pyc",
+    "*pycache*",
+    "Cargo.lock",
+    "Cargo.Bazel.lock",
 })
 
 -- the command bar is just for commands and output
@@ -68,8 +72,8 @@ vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 
 vim.opt.diffopt:append({
-    "hiddenoff",        -- no diff for hidden bufs
-    "algorithm:minimal" -- spend extra cycles for the smallest possible diff
+    "hiddenoff", -- no diff for hidden bufs
+    "algorithm:minimal", -- spend extra cycles for the smallest possible diff
 })
 
 -- render space for column even if it has no content (prevents text from shifting)
@@ -99,7 +103,7 @@ vim.filetype.add({
         conf = "conf",
     },
     filename = {
-        [".yamllint"] = "yaml"
+        [".yamllint"] = "yaml",
     },
 })
 

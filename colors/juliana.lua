@@ -10,32 +10,32 @@ local M = {
     config = {
         ---@class Colors
         colors = {
-            fg1          = "#ffffff",
-            fg2          = "#d8dee9",
-            fg3          = "#a6acb9",
-            fg4          = "#46525c",
-            bg1          = "#444e59",
+            fg1 = "#ffffff",
+            fg2 = "#d8dee9",
+            fg3 = "#a6acb9",
+            fg4 = "#46525c",
+            bg1 = "#444e59",
             selection_bg = "#3f4750",
-            bg2          = "#303841",
-            bg3          = "#2e353e",
-            diff_text    = "#373f48",
-            diff_add     = "#41525a",
-            diff_change  = "#585249",
-            diff_remove  = "#4f434a",
-            text_fg      = "#d9d9d9",
-            yellow1      = "#fac761",
-            yellow2      = "#f9ae58",
-            yellow3      = "#ee932b",
-            green        = "#99c794",
-            magenta      = "#c695c6",
-            orange       = "#f97b58",
-            red1         = "#c76b70",
-            red2         = "#ec5f66",
-            blue1        = "#95b2d6",
-            blue2        = "#5c99d6",
-            cyan1        = "#87c7c7",
-            cyan2        = "#5fb4b4",
-        }
+            bg2 = "#303841",
+            bg3 = "#2e353e",
+            diff_text = "#373f48",
+            diff_add = "#41525a",
+            diff_change = "#585249",
+            diff_remove = "#4f434a",
+            text_fg = "#d9d9d9",
+            yellow1 = "#fac761",
+            yellow2 = "#f9ae58",
+            yellow3 = "#ee932b",
+            green = "#99c794",
+            magenta = "#c695c6",
+            orange = "#f97b58",
+            red1 = "#c76b70",
+            red2 = "#ec5f66",
+            blue1 = "#95b2d6",
+            blue2 = "#5c99d6",
+            cyan1 = "#87c7c7",
+            cyan2 = "#5fb4b4",
+        },
     },
 }
 
@@ -45,28 +45,28 @@ function M:load()
         vim.cmd("hi clear")
     end
     vim.cmd("set t_Co=256")
-    vim.g.colors_name         = "juliana"
+    vim.g.colors_name = "juliana"
 
-    local C                   = self.config.colors
-    local default             = { fg = C.fg2, bg = C.bg2 }
-    local muted               = { fg = C.fg3 }
-    local selection           = { bg = C.selection_bg }
-    local text_red            = { fg = C.red2 }
-    local text_yellow         = { fg = C.yellow2 }
-    local text_yellow_italic  = { fg = C.yellow2, italic = true }
-    local text_green          = { fg = C.green }
-    local text_cyan           = { fg = C.cyan2 }
-    local text_magenta        = { fg = C.magenta }
-    local text_selected       = { bg = C.bg1 }
-    local text_emphasis       = { fg = C.fg1 }
-    local text_orange         = { fg = C.orange }
+    local C = self.config.colors
+    local default = { fg = C.fg2, bg = C.bg2 }
+    local muted = { fg = C.fg3 }
+    local selection = { bg = C.selection_bg }
+    local text_red = { fg = C.red2 }
+    local text_yellow = { fg = C.yellow2 }
+    local text_yellow_italic = { fg = C.yellow2, italic = true }
+    local text_green = { fg = C.green }
+    local text_cyan = { fg = C.cyan2 }
+    local text_magenta = { fg = C.magenta }
+    local text_selected = { bg = C.bg1 }
+    local text_emphasis = { fg = C.fg1 }
+    local text_orange = { fg = C.orange }
     local text_magenta_italic = { fg = C.magenta, italic = true }
-    local ui_title            = { fg = C.fg2, bold = true }
-    local ui_select           = { bg = C.bg1, fg = C.fg1 }
-    local ui_thumb            = { bg = C.bg3, fg = C.bg1 }
-    local current_line        = { fg = C.fg1, bg = C.selection_bg }
-    local search              = { fg = C.bg3, bg = C.yellow1, bold = true }
-    local text_blue           = { fg = C.blue2 }
+    local ui_title = { fg = C.fg2, bold = true }
+    local ui_select = { bg = C.bg1, fg = C.fg1 }
+    local ui_thumb = { bg = C.bg3, fg = C.bg1 }
+    local current_line = { fg = C.fg1, bg = C.selection_bg }
+    local search = { fg = C.bg3, bg = C.yellow1, bold = true }
+    local text_blue = { fg = C.blue2 }
 
     hl("Normal", default)
     hl("Visual", selection)
@@ -323,10 +323,16 @@ function M:load()
     hl("rainbowcol7", { fg = C.yellow3 })
     hl("IndentBlanklineChar", { fg = C.fg4, bg = "NONE", nocombine = true })
     hl("IndentBlanklineSpaceChar", { fg = "NONE", bg = "NONE", nocombine = true })
-    hl("IndentBlanklineSpaceCharBlankline", { fg = "NONE", bg = "NONE", nocombine = true })
+    hl(
+        "IndentBlanklineSpaceCharBlankline",
+        { fg = "NONE", bg = "NONE", nocombine = true }
+    )
     hl("IndentBlanklineContextChar", { fg = C.fg3, bg = "NONE", nocombine = true })
     hl("IndentBlanklineContextSpaceChar", { fg = "NONE", bg = "NONE", nocombine = true })
-    hl("IndentBlanklineContextStart", { fg = "NONE", bg = "NONE", sp = C.fg3, underdotted = true })
+    hl(
+        "IndentBlanklineContextStart",
+        { fg = "NONE", bg = "NONE", sp = C.fg3, underdotted = true }
+    )
     hl("CmpItemAbbrDeprecated", { strikethrough = true })
     hl("CmpItemKindStruct", { fg = C.yellow2 })
     hl("CmpItemKindFunction", text_blue)
@@ -451,7 +457,10 @@ function M:load()
     hl("@lsp.type.property", { fg = C.blue1 })
     hl("@lsp.type.variable", { fg = C.fg2 })
     hl("@lsp.type.decorator", { fg = C.cyan2, bold = true })
-    hl("@lsp.typemod.decorator.defaultLibrary", { fg = C.cyan2, bold = true, italic = true })
+    hl(
+        "@lsp.typemod.decorator.defaultLibrary",
+        { fg = C.cyan2, bold = true, italic = true }
+    )
     hl("@lsp.type.namespace", { fg = C.yellow2 })
     hl("@lsp.typemod.namespace.defaultLibrary", { fg = C.yellow2, italic = true })
     hl("@lsp.type.parameter", { fg = C.fg2 })

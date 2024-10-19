@@ -33,6 +33,6 @@ return {
     },
     keys = {
         { "<leader>gs", "<cmd>Git<cr>", desc = "[G]it [S]tatus" },
-        { "<leader>gb", "<cmd>GBrowse<cr>", desc = "[G]it [B]rowse" }
-    }
+        { "<leader>gb", "<cmd>GBrowse<cr>", desc = "[G]it [B]rowse" },
+    },
 }
