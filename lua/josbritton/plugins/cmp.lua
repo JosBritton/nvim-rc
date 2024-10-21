@@ -43,14 +43,8 @@ return {
                 -- accept ([y]es) the completion.
                 --  This will auto-import if your LSP supports it.
                 --  This will expand snippets if the LSP sent a snippet.
-                ["<C-y>"] = cmp.mapping.confirm({
-                    behavior = cmp.ConfirmBehavior.Replace,
-                    select = true,
-                }),
-                ["<CR>"] = cmp.mapping.confirm({
-                    behavior = cmp.ConfirmBehavior.Replace,
-                    select = true,
-                }),
+                ["<C-y>"] = cmp.mapping.confirm({ select = true }),
+                ["<CR>"] = cmp.mapping.confirm({ select = true }),
                 -- manually trigger a completion from nvim-cmp.
                 --  generally you don't need this, because nvim-cmp will display
                 --  completions whenever it has completion options available.
