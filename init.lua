@@ -1,4 +1,5 @@
 require("josbritton.options")
+require("josbritton.events")
 require("josbritton.lazy")
 require("josbritton.keymaps")
 require("josbritton.statusline")
