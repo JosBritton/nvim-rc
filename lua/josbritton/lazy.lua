@@ -42,4 +42,7 @@ require("lazy").setup("josbritton.plugins", {
     change_detection = {
         notify = false,
     },
+    rocks = {
+        enabled = false,
+    },
 })
