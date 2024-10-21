@@ -1,4 +1,5 @@
 local state = vim.fn.stdpath("state")
+local data = vim.fn.stdpath("data")
 
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
@@ -22,6 +23,9 @@ vim.opt.wildignore:append({
     "Cargo.lock",
     "Cargo.Bazel.lock",
 })
+
+vim.opt.spelllang = "en_us"
+vim.opt.spellfile = data .. "/en.utf-8.add"
 
 -- the command bar is just for commands and output
 vim.opt.showcmd = false
