@@ -11,10 +11,12 @@ clean:
 .PHONY: lint
 lint:
 	stylua --verify --check .
+	markdownlint "**/*.md" --ignore LICENSE.md
 
 .PHONY: format
 format:
 	stylua --verify .
+	markdownlint --fix "**/*.md" --ignore LICENSE.md
 
 .PHONY: install
 install: $(GIT_DIR)/hooks/pre-commit
