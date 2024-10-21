@@ -1,6 +1,6 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.uv.fs_stat(lazypath) then
-    vim.fn.system({
+    local out = vim.fn.system({
         "git",
         "clone",
         "--filter=blob:none",
@@ -8,9 +8,10 @@ if not vim.uv.fs_stat(lazypath) then
         "--branch=stable", -- latest stable release
         lazypath,
     })
-end
-
----@diagnostic disable-next-line: undefined-field
+    if vim.v.shell_error ~= 0 then
+        error("Error cloning lazy.nvim:\n" .. out)
+    end
+end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
 local id = vim.api.nvim_create_augroup("LazyUser", { clear = false })
