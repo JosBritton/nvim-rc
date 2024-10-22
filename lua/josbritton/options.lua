@@ -117,6 +117,10 @@ vim.filetype.add({
     filename = {
         [".yamllint"] = "yaml",
     },
+    pattern = {
+        ["${HOME}/%.config/yamllint/config"] = "yaml",
+        ["${XDG_CONFIG_HOME/yamllint/config"] = "yaml",
+    },
 })
 
 -- remove builtin

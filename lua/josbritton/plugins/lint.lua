@@ -11,6 +11,7 @@ return {
             bash = { "shellcheck" },
             sh = { "shellcheck" },
             markdown = { "markdownlint" },
+            yaml = { "yamllint" },
         }
 
         local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
