@@ -85,6 +85,22 @@ local function lsp_name(active)
 end
 
 --- @param active 0|1
+--- @return string
+function M.linter_status(active)
+    ---@type string
+    local ft = vim.bo.filetype
+
+    ---@type string[]
+    local names = {}
+    names = require("lint").linters_by_ft[ft]
+    if names == nil or #names < 1 then
+        return ""
+    end
+
+    return hl("LinterName", active) .. table.concat(names, ", ")
+end
+
+--- @param active 0|1
 --- @return string?
 local function diagnostics(active)
     local status = {} ---@type string[]
@@ -338,6 +354,8 @@ local function set(active, global)
             pad(F.hunks(active)),
             highlight(2, active),
             pad(F.lsp_status(active)),
+            highlight(2, active),
+            pad(F.linter_status(active)),
             highlight(2, active),
             "%<",
             pad(F.bufname() .. "%m%r%h%q"),
