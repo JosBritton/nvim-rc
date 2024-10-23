@@ -116,6 +116,7 @@ vim.filetype.add({
     },
     filename = {
         [".yamllint"] = "yaml",
+        ["Chart.lock"] = "yaml",
     },
     pattern = {
         ["${HOME}/%.config/yamllint/config"] = "yaml",
