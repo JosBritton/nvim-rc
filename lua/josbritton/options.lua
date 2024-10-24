@@ -121,6 +121,8 @@ vim.filetype.add({
     pattern = {
         ["${HOME}/%.config/yamllint/config"] = "yaml",
         ["${XDG_CONFIG_HOME}/yamllint/config"] = "yaml",
+        ["${HOME}/%.config/git/config"] = "gitconfig",
+        ["${XDG_CONFIG_HOME}/git/config"] = "gitconfig",
     },
 })
 
