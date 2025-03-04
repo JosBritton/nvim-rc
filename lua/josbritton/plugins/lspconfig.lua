@@ -13,7 +13,6 @@ return {
         "b0o/schemastore.nvim",
         { "williamboman/mason.nvim", config = true }, -- NOTE: Must be loaded before dependants
         "williamboman/mason-lspconfig.nvim",
-        "WhoIsSethDaniel/mason-tool-installer.nvim",
         { "j-hui/fidget.nvim", opts = {} }, -- status UI when loading LSP
         { "folke/neodev.nvim", opts = {} },
         { "microsoft/python-type-stubs" },
@@ -187,7 +186,21 @@ return {
             require("cmp_nvim_lsp").default_capabilities()
         )
 
-        local servers = {
+        -- local system_servers = {}
+
+        local mason_servers = {
+            neocmake = {
+                capabilities = {
+                    textDocument = {
+                        completion = {
+                            completionItem = {
+                                snippetSupport = true,
+                            },
+                        },
+                    },
+                },
+            },
+            -- keys are lspconfig server names
             lua_ls = {
                 settings = {
                     Lua = {
@@ -255,31 +268,31 @@ return {
             },
         })
 
-        local ensure_installed = vim.tbl_keys(servers or {})
-        vim.list_extend(ensure_installed, {
-            "stylua",
-            "markdownlint",
-            "yamllint",
-        })
-        require("mason-tool-installer").setup({
-            ensure_installed = ensure_installed,
-        })
+        ---@param server_name string
+        ---@param server_list table<string, table>
+        local function setup_lsp_server(server_name, server_list)
+            local server = server_list[server_name] or {}
+            -- this handles overriding only values explicitly passed
+            -- by the server configuration above
+            server.capabilities =
+                vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+            require("lspconfig")[server_name].setup(server)
+        end
 
+        local function mason_server_handler(mason_server_name)
+            setup_lsp_server(mason_server_name, mason_servers)
+        end
+
+        -- installs packages to:
+        -- ~/.local/share/nvim/mason/packages
         require("mason-lspconfig").setup({
+            ensure_installed = vim.tbl_keys(mason_servers or {}),
             handlers = {
-                function(server_name)
-                    local server = servers[server_name] or {}
-                    -- this handles overriding only values explicitly passed
-                    -- by the server configuration above
-                    server.capabilities = vim.tbl_deep_extend(
-                        "force",
-                        {},
-                        capabilities,
-                        server.capabilities or {}
-                    )
-                    require("lspconfig")[server_name].setup(server)
-                end,
+                mason_server_handler,
             },
         })
+        for k, _v in pairs(system_servers or {}) do
+            setup_lsp_server(k, system_servers or {})
+        end
     end,
 }
