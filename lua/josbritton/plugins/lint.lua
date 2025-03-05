@@ -5,6 +5,20 @@ return {
     },
     event = { "BufReadPre", "BufNewFile" },
     config = function()
+        ---@type table<string>
+        local required_bins = {
+            "shellcheck",
+            "markdownlint",
+            "yamllint",
+        }
+
+        for _, e in ipairs(required_bins) do
+            assert(
+                vim.fn.executable(e) == 1,
+                string.format("`%s` not installed or available.", e)
+            )
+        end
+
         local lint = require("lint")
 
         lint.linters_by_ft = {

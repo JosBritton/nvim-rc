@@ -19,6 +19,19 @@ return {
         { "p00f/clangd_extensions.nvim", lazy = true },
     },
     config = function()
+        ---@type table<string>
+        local required_bins = {
+            "clangd",
+            "rust-analyzer",
+        }
+
+        for _, e in ipairs(required_bins) do
+            assert(
+                vim.fn.executable(e) == 1,
+                string.format("`%s` not installed or available.", e)
+            )
+        end
+
         ---@type integer
         local id = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true })
         vim.api.nvim_create_autocmd("LspAttach", {

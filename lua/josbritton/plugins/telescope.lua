@@ -4,13 +4,14 @@ return {
     dependencies = {
         "nvim-lua/plenary.nvim",
         "nvim-tree/nvim-web-devicons",
-        -- install c port of fzf for telescope only if `make` is available
-        -- (does not require real fzf)
+        -- build and make available C port of fzf for telescope
+        -- (does not require fzf to be installed on the system)
         {
             "nvim-telescope/telescope-fzf-native.nvim",
             build = "make",
             cond = function()
                 return vim.fn.executable("make") == 1
+                    and (vim.fn.executable("gcc") == 1 or vim.fn.executable("clang") == 1)
             end,
         },
     },
@@ -76,15 +77,27 @@ return {
             },
         })
 
-        if vim.fn.executable("rg") ~= 1 then
-            error("ripgrep not installed")
+        -- required to build fzf-native
+        assert(
+            vim.fn.executable("gcc") == 1 or vim.fn.executable("clang") == 1,
+            "`gcc` OR `clang` not installed or available."
+        )
+
+        ---@type table<string>
+        local required_bins = {
+            "rg", -- required for live-grepping
+            "fd", -- required for finding
+            "make", -- required to build fzf-native
+        }
+
+        for _, e in ipairs(required_bins) do
+            assert(
+                vim.fn.executable(e) == 1,
+                string.format("`%s` not installed or available.", e)
+            )
         end
 
-        if vim.fn.executable("fzf") ~= 1 then
-            error("fzf not installed")
-        end
-
-        -- enable telescope fzf native, if installed
-        pcall(require("telescope").load_extension, "fzf")
+        -- fzf *native*
+        require("telescope").load_extension("fzf")
     end,
 }
