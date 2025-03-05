@@ -7,7 +7,7 @@ return {
     },
     event = "User DirEnter",
     keys = {
-        { "<leader>pv", nil, desc = "Open file explorer" },
+        { "<leader>pv", nil, desc = "O[p]en File Explorer [V]iew" },
     },
     config = function()
         require("nvim-web-devicons").set_icon({
@@ -44,7 +44,7 @@ return {
             "n",
             "<leader>pv",
             "<cmd>edit %:h<CR>",
-            { noremap = true, silent = true, desc = "Open file explorer" }
+            { noremap = true, silent = true, desc = "O[p]en File Explorer [V]iew" }
         )
 
         require("lir.git_status").setup({

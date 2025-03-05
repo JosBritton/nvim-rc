@@ -51,12 +51,12 @@ return {
             "<cmd>Telescope live_grep<CR>",
             desc = "Search [P]roject by Grep [S]tring",
         },
-        {
-            "<leader>sd",
-            "<cmd>Telescope diagnostics<CR>",
-            desc = "[S]earch [D]iagnostics",
-        },
-        { "<leader>sh", "<cmd>Telescope help_tags<CR>", desc = "[S]earch [H]elp" },
+        -- {
+        --     "<leader>sd",
+        --     "<cmd>Telescope diagnostics<CR>",
+        --     desc = "[S]earch [D]iagnostics",
+        -- },
+        -- { "<leader>sh", "<cmd>Telescope help_tags<CR>", desc = "[S]earch [H]elp" },
     },
     cmd = {
         "Telescope",

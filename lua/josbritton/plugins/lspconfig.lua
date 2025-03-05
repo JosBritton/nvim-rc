@@ -100,11 +100,11 @@ return {
 
                 -- rename the variable under your cursor.
                 --  most Language Servers support renaming across files, etc.
-                nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+                nmap("<leader>rn", vim.lsp.buf.rename, "LSP: [R]e[n]ame Item")
 
                 -- execute a code action, usually your cursor needs to be on top of an error
                 -- or a suggestion from your LSP for this to activate.
-                nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+                nmap("<leader>ca", vim.lsp.buf.code_action, "LSP: [C]ode [A]ction")
 
                 -- opens a popup that displays documentation about the word under your cursor
                 --  see `:help K` for why this keymap.
