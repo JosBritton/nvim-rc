@@ -16,6 +16,7 @@ return {
         { "j-hui/fidget.nvim", opts = {} }, -- status UI when loading LSP
         { "folke/neodev.nvim", opts = {} },
         { "microsoft/python-type-stubs" },
+        { "p00f/clangd_extensions.nvim", lazy = true },
     },
     config = function()
         ---@type integer
@@ -263,7 +264,43 @@ return {
             require("cmp_nvim_lsp").default_capabilities()
         )
 
-        -- local system_servers = {}
+        local system_servers = {
+            clangd = {
+                cmd = {
+                    "clangd",
+                    "--background-index",
+                    "--clang-tidy",
+                    "--header-insertion=iwyu",
+                    "--completion-style=detailed",
+                    "--function-arg-placeholders",
+                    "--fallback-style=llvm",
+                },
+                root_dir = function(fname)
+                    return require("lspconfig.util").root_pattern(
+                        "Makefile",
+                        ".clangd",
+                        ".clang-tidy",
+                        ".clang-format",
+                        "configure.ac",
+                        "configure.in",
+                        "config.h.in",
+                        "meson.build",
+                        "meson_options.txt",
+                        "build.ninja"
+                    )(fname) or require("lspconfig.util").root_pattern(
+                        "compile_commands.json",
+                        "compile_flags.txt"
+                    )(fname) or vim.fs.dirname(
+                        vim.fs.find(".git", { path = fname, upward = true })[1]
+                    )
+                end,
+                init_options = {
+                    usePlaceholders = true,
+                    completeUnimported = true,
+                    clangdFileStatus = true,
+                },
+            },
+        }
 
         local mason_servers = {
             -- keys are lspconfig server names
