@@ -128,9 +128,12 @@ return {
                     and client.server_capabilities.inlayHintProvider
                     and vim.lsp.inlay_hint
                 then
+                    vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
                     nmap("<leader>th", function()
-                        ---@diagnostic disable-next-line: missing-parameter
-                        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+                        vim.lsp.inlay_hint.enable(
+                            not vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf }),
+                            { bufnr = ev.buf }
+                        )
                     end, "[T]oggle Inlay [H]ints")
                 end
 
