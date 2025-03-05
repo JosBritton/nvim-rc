@@ -189,17 +189,6 @@ return {
         -- local system_servers = {}
 
         local mason_servers = {
-            neocmake = {
-                capabilities = {
-                    textDocument = {
-                        completion = {
-                            completionItem = {
-                                snippetSupport = true,
-                            },
-                        },
-                    },
-                },
-            },
             -- keys are lspconfig server names
             lua_ls = {
                 settings = {
