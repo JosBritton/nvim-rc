@@ -190,7 +190,7 @@ return {
                 local lsp_autoformat_default = true
 
                 local autoformat_clients = {
-                    "rust-analyzer",
+                    "rust_analyzer",
                 }
 
                 ---@type function
@@ -314,6 +314,93 @@ return {
                     usePlaceholders = true,
                     completeUnimported = true,
                     clangdFileStatus = true,
+                },
+            },
+            rust_analyzer = {
+                settings = {
+                    ["rust-analyzer"] = {
+                        inlayHints = {
+                            -- maxLength = 25,
+                            -- bindingModeHints = {
+                            --     enable = true,
+                            -- },
+                            closureCaptureHints = {
+                                enable = true,
+                            },
+                            closureReturnTypeHints = {
+                                enable = true,
+                            },
+                            discriminantHints = {
+                                enable = true,
+                            },
+                            -- expressionAdjustmentHints = {
+                            --     enable = true,
+                            --     -- hideOutsideUnsafe = false,
+                            --     -- mode = "prefix",
+                            -- },
+                            -- genericParameterHints = {
+                            --     lifetime = {
+                            --         enable = true,
+                            --     },
+                            --     type = {
+                            --         enable = true,
+                            --     },
+                            -- },
+                            -- implicitDrops = {
+                            --     enable = true,
+                            -- },
+                            -- implicitSizedBoundHints = {
+                            --     enable = true,
+                            -- },
+                            -- lifetimeElisionHints = {
+                            --     enable = true,
+                            --     useParameterNames = true,
+                            -- },
+                            -- rangeExclusiveHints = {
+                            --     enable = true,
+                            -- },
+                            -- reborrowHints = {
+                            --     enable = true,
+                            -- },
+                            -- typeHints = {
+                            --     hideClosureInitialization = true,
+                            --     hideClosureParameter = true,
+                            --     hideNamedConstructor = true,
+                            -- },
+                        },
+                        imports = {
+                            granularity = {
+                                group = "module", -- def: "crate"
+                                enforce = true,
+                            },
+                            prefix = "self", -- def: "plain"
+                            preferNoStd = true,
+                            -- prefixExternPrelude = true,
+                        },
+                        completion = {
+                            -- limit = 10,
+                            -- fullFunctionSignatures = {
+                            --     enable = true, -- def: false
+                            -- },
+                            -- show private items and fields even if they aren't visible
+                            privateEditable = {
+                                enable = true,
+                            },
+                            -- -- expensive?
+                            -- termSearch = {
+                            --     enable = true,
+                            --     fuel = 1000, -- fuel in "units of work"
+                            -- },
+                        },
+                        diagnostics = {
+                            styleLints = {
+                                enable = true,
+                            },
+                            -- experimental = {
+                            --     enable = true,
+                            -- },
+                        },
+                    },
                 },
             },
         }
