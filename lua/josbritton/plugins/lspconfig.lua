@@ -162,20 +162,97 @@ return {
                     return
                 end
 
-                -- -- create an autocmd that will run *before* we save the buffer.
-                -- --  run the formatting command for the LSP that has just attached.
-                -- vim.api.nvim_create_autocmd("BufWritePre", {
-                --     group = id,
-                --     buffer = ev.buf,
-                --     callback = function()
-                --         vim.lsp.buf.format {
-                --             async = false,
-                --             filter = function(c)
-                --                 return c.id == client.id
-                --             end,
-                --         }
-                --     end,
-                -- })
+                -- LSP autoformatting *before* saving file
+                --
+                -- if LSP client that is attaching to current buffer is in table `autoformat_clients`:
+                -- if TRUE,
+                --     enable autoformatting, creating the command `:AutoFormatOFF` to temporarily disable it
+                -- if FALSE,
+                --     create the command `AutoFormatON` to temporarily enable autoformatting
+
+                local lsp_autoformat_default = true
+
+                local autoformat_clients = {
+                    "rust-analyzer",
+                }
+
+                ---@type function
+                local enable_lsp_autoformatting
+                ---@type function
+                local create_autoformat_off_cmd
+                ---@type function
+                local create_autoformat_on_cmd
+
+                ---@return number # The ID number of the autocommand that was just created
+                enable_lsp_autoformatting = function()
+                    local cmd = vim.api.nvim_create_autocmd("BufWritePre", {
+                        group = id,
+                        buffer = ev.buf,
+                        callback = function()
+                            vim.lsp.buf.format({
+                                async = false,
+                                filter = function(c)
+                                    return c.id == client.id
+                                end,
+                            })
+                        end,
+                    })
+                    return cmd
+                end
+
+                ---@param cmd number The ID number of the autocommand to be deleted
+                ---@return nil
+                create_autoformat_off_cmd = function(cmd)
+                    pcall(vim.api.nvim_buf_del_user_command, ev.buf, "AutoFormatON")
+
+                    -- use with `:AutoFormatOFF`, buffer-local & temporary
+                    vim.api.nvim_buf_create_user_command(
+                        ev.buf,
+                        "AutoFormatOFF",
+                        function()
+                            local ok, _ = pcall(vim.api.nvim_del_autocmd, cmd)
+                            if ok then
+                                create_autoformat_on_cmd()
+                            end
+                        end,
+                        { desc = "Disable automatic LSP formatting before saving" }
+                    )
+                end
+
+                ---@return nil
+                create_autoformat_on_cmd = function()
+                    pcall(vim.api.nvim_buf_del_user_command, ev.buf, "AutoFormatOFF")
+
+                    -- use with `:AutoFormatON`, buffer-local & temporary
+                    vim.api.nvim_buf_create_user_command(
+                        ev.buf,
+                        "AutoFormatON",
+                        function()
+                            ---@diagnostic disable-next-line: redefined-local
+                            local ok, cmd = pcall(enable_lsp_autoformatting)
+                            if ok then
+                                create_autoformat_off_cmd(cmd)
+                            end
+                        end,
+                        { desc = "Enable automatic LSP formatting before saving" }
+                    )
+                end
+
+                for _, v in ipairs(autoformat_clients or {}) do
+                    if v == client.name then
+                        if lsp_autoformat_default then
+                            local ok, cmd = pcall(enable_lsp_autoformatting)
+                            if ok then
+                                create_autoformat_off_cmd(cmd)
+                            end
+                        else
+                            create_autoformat_on_cmd()
+                        end
+
+                        -- found client, do not continue loop
+                        break
+                    end
+                end
             end,
         })
 
