@@ -149,3 +149,118 @@ local ok, _ = pcall(vim.cmd.colorscheme, "juliana")
 if not ok then
     vim.cmd.colorscheme("default")
 end
+
+-- ---@type rustaceanvim.Opts
+vim.g.rustaceanvim = {
+    ---@type rustaceanvim.tools.Opts
+    tools = {
+        rustc = {
+            default_edition = "2021",
+        },
+        executor = "quickfix",
+    },
+    ---@type rustaceanvim.lsp.ClientOpts
+    server = {
+        on_attach = function(_client, bufnr)
+            -- vim.keymap.set("n", "<leader>a", function()
+            --     vim.cmd.RustLsp("codeAction") -- supports rust-analyzer's grouping
+            --     -- or vim.lsp.buf.codeAction() if you don't want grouping.
+            -- end, { silent = true, buffer = bufnr })
+            vim.keymap.set(
+                "n",
+                "K", -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
+                function()
+                    vim.cmd.RustLsp({ "hover", "actions" })
+                end,
+                { silent = true, buffer = bufnr }
+            )
+            vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+        end,
+        load_vscode_settings = false,
+        default_settings = {
+            ["rust-analyzer"] = {
+                inlayHints = {
+                    -- maxLength = 25,
+                    -- bindingModeHints = {
+                    --     enable = true,
+                    -- },
+                    closureCaptureHints = {
+                        enable = true,
+                    },
+                    closureReturnTypeHints = {
+                        enable = true,
+                    },
+                    discriminantHints = {
+                        enable = true,
+                    },
+                    -- expressionAdjustmentHints = {
+                    --     enable = true,
+                    --     -- hideOutsideUnsafe = false,
+                    --     -- mode = "prefix",
+                    -- },
+                    -- genericParameterHints = {
+                    --     lifetime = {
+                    --         enable = true,
+                    --     },
+                    --     type = {
+                    --         enable = true,
+                    --     },
+                    -- },
+                    -- implicitDrops = {
+                    --     enable = true,
+                    -- },
+                    -- implicitSizedBoundHints = {
+                    --     enable = true,
+                    -- },
+                    -- lifetimeElisionHints = {
+                    --     enable = true,
+                    --     useParameterNames = true,
+                    -- },
+                    -- rangeExclusiveHints = {
+                    --     enable = true,
+                    -- },
+                    -- reborrowHints = {
+                    --     enable = true,
+                    -- },
+                    -- typeHints = {
+                    --     hideClosureInitialization = true,
+                    --     hideClosureParameter = true,
+                    --     hideNamedConstructor = true,
+                    -- },
+                },
+                imports = {
+                    granularity = {
+                        group = "module", -- def: "crate"
+                        enforce = true,
+                    },
+                    prefix = "self", -- def: "plain"
+                    preferNoStd = true,
+                    -- prefixExternPrelude = true,
+                },
+                completion = {
+                    -- limit = 10,
+                    -- fullFunctionSignatures = {
+                    --     enable = true, -- def: false
+                    -- },
+                    -- show private items and fields even if they aren't visible
+                    privateEditable = {
+                        enable = true,
+                    },
+                    -- -- expensive?
+                    -- termSearch = {
+                    --     enable = true,
+                    --     fuel = 1000, -- fuel in "units of work"
+                    -- },
+                },
+                diagnostics = {
+                    styleLints = {
+                        enable = true,
+                    },
+                    -- experimental = {
+                    --     enable = true,
+                    -- },
+                },
+            },
+        },
+    },
+}
