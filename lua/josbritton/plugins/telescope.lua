@@ -2,6 +2,8 @@ return {
     "nvim-telescope/telescope.nvim",
     branch = "0.1.x",
     dependencies = {
+        -- note: will use LSP features
+        "nvim-treesitter/nvim-treesitter", -- required for preview/finding
         "nvim-lua/plenary.nvim",
         "nvim-tree/nvim-web-devicons",
         -- build and make available C port of fzf for telescope
