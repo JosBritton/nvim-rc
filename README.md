@@ -8,6 +8,15 @@ Forked from [modular kickstart.nvim](https://github.com/dam9000/kickstart-modula
 git clone https://github.com/JosBritton/rc.nvim.git ~/.config/nvim
 ```
 
+For linters see:
+    `lua/josbritton/plugins/lint.lua`
+
+For formatters see:
+    `lua/josbritton/plugins/conform.lua`
+
+For LSPs see:
+    `lua/josbritton/plugins/lspconfig.lua`
+
 ## Requirements
 
 - 64-bit operating system[^2]
