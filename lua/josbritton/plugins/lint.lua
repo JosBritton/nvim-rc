@@ -36,5 +36,8 @@ return {
                 lint.try_lint()
             end,
         })
+
+        -- try once on init
+        lint.try_lint()
     end,
 }
