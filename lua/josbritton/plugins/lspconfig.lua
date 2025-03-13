@@ -461,6 +461,13 @@ return {
                         vim.fs.joinpath(std_data, "lazy", "python-type-stubs")
                 end,
             },
+            ts_ls = {
+                settings = {
+                    implicitProjectConfiguration = {
+                        checkJs = true,
+                    },
+                },
+            },
         }
 
         require("mason").setup({
