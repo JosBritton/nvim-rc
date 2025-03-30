@@ -17,6 +17,7 @@ return {
         { "folke/neodev.nvim", opts = {} },
         { "microsoft/python-type-stubs" },
         { "p00f/clangd_extensions.nvim", lazy = true },
+        "saghen/blink.cmp",
     },
     config = function()
         ---@type table<string>
@@ -277,7 +278,7 @@ return {
         capabilities = vim.tbl_deep_extend(
             "force",
             capabilities,
-            require("cmp_nvim_lsp").default_capabilities()
+            require("blink-cmp").get_lsp_capabilities()
         )
 
         local system_servers = {
