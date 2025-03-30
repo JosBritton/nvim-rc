@@ -75,6 +75,7 @@ return {
                 find_files = {
                     -- default picker ignores fd ignore file
                     find_command = { "fd", "--type", "f" },
+                    push_tagstack_on_edit = true,
                 },
             },
         })

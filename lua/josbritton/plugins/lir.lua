@@ -40,12 +40,18 @@ return {
             hide_cursor = true,
         })
 
-        vim.keymap.set(
-            "n",
-            "<leader>pv",
-            "<cmd>edit %:h<CR>",
-            { noremap = true, silent = true, desc = "O[p]en File Explorer [V]iew" }
-        )
+        vim.keymap.set("n", "<leader>pv", function()
+            -- update tag stack with departing item
+            local from = { vim.fn.bufnr("%"), vim.fn.line("."), vim.fn.col("."), 0 }
+            local items = { { tagname = vim.fn.expand("<cword>"), from = from } }
+            vim.fn.settagstack(vim.fn.win_getid(), { items = items }, "t")
+
+            vim.cmd.edit("%:h")
+        end, {
+            noremap = true,
+            silent = true,
+            desc = "O[p]en File Explorer [V]iew",
+        })
 
         require("lir.git_status").setup({
             show_ignored = false,
