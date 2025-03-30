@@ -41,6 +41,10 @@ return {
         })
 
         vim.keymap.set("n", "<leader>pv", function()
+            if vim.bo.filetype == "lir" then
+                return
+            end
+
             -- update tag stack with departing item
             local from = { vim.fn.bufnr("%"), vim.fn.line("."), vim.fn.col("."), 0 }
             local items = { { tagname = vim.fn.expand("<cword>"), from = from } }
