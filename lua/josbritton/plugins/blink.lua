@@ -40,7 +40,7 @@ return {
                     -- treesitter = { "lsp" },
                     components = {
                         label = {
-                            width = { fill = false, max = 60 },
+                            width = { fill = false, max = 30 },
                             text = function(ctx)
                                 return ctx.label
                             end,
@@ -105,7 +105,7 @@ return {
                 window = {
                     -- border is practically required for vertical windowing
                     border = "single",
-                    scrollbar = false,
+                    scrollbar = true,
                     direction_priority = {
                         -- allow extending popup window only, do not surround line with popup
                         menu_north = { "e", "w", "n" },
@@ -114,12 +114,9 @@ return {
                         -- menu_north = { "e", "w" },
                         -- menu_south = { "e", "w" },
                     },
-                    max_height = 80, -- includes length of often large docs
+                    max_height = 20,
                 },
-
-                -- default MINIMUM or error is 50!
-                update_delay_ms = 50,
-                auto_show_delay_ms = 100,
+                auto_show_delay_ms = 500,
             },
             trigger = {
                 show_on_accept_on_trigger_character = false,
