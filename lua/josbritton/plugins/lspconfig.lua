@@ -246,7 +246,6 @@ return {
                         ev.buf,
                         "AutoFormatON",
                         function()
-                            ---@diagnostic disable-next-line: redefined-local
                             local ok, cmd = pcall(enable_lsp_autoformatting)
                             if ok then
                                 create_autoformat_off_cmd(cmd)

@@ -4,6 +4,9 @@
     "version": "LuaJIT"
   },
   "diagnostics": {
+    "disable": [
+      "redefined-local"
+    ],
     "groupFileStatus": {
       "strict": "Opened",
       "strong": "Opened",
