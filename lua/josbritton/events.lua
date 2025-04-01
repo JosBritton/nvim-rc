@@ -88,3 +88,36 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
         end
     end,
 })
+
+-- show file immediately before loading plugins
+local id = vim.api.nvim_create_augroup("QuickFile", { clear = true })
+vim.api.nvim_create_autocmd({ "BufReadPost" }, {
+    group = id,
+    once = true,
+    callback = function(ev)
+        if vim.v.vim_did_enter == 1 then
+            return
+        end
+
+        -- try to guess the filetype (may change later on during startup)
+        local ft = vim.filetype.match({ buf = ev.buf })
+        if not ft then
+            return
+        end
+
+        -- Add treesitter highlights and fallback to syntax
+        local lang = vim.treesitter.language.get_lang(ft)
+
+        -- disable treesitter for some langs
+        if lang == "latex" then
+            lang = nil
+        end
+
+        if not (lang and pcall(vim.treesitter.start, ev.buf, lang)) then
+            vim.bo[ev.buf].syntax = ft
+        end
+
+        -- trigger early redraw
+        vim.cmd([[redraw]])
+    end,
+})
