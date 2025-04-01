@@ -49,7 +49,6 @@ modify `init.lua` to include only your relevant config
 may not be useful to you or may require dependencies that you don't care to
 install, you can disable them there
 
----
 [^1]: For compiling native fzf C-port for telescope
 [^2]: For building lua snippets
 [^3]: For building markdown preview
