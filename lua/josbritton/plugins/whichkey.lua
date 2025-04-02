@@ -51,7 +51,7 @@ return {
             { "<leader>r", group = "[R]ename" },
             {
                 "<leader>s",
-                group = "[S]earch Item Under Cursor",
+                group = "[S]earch and Replace Item Under Cursor",
                 ---@type wk.Icon
                 icon = {
                     icon = " ",
