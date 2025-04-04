@@ -138,6 +138,99 @@ vim.keymap.set(
     { desc = "Find and replace the word under the cursor" }
 )
 
+local termcode = {
+    left = vim.api.nvim_replace_termcodes("<Left>", true, false, true),
+    esc = vim.api.nvim_replace_termcodes("<Esc>", true, false, true),
+    c_r = vim.api.nvim_replace_termcodes("<C-r>", true, false, true),
+}
+vim.keymap.set("x", "<leader>s", function()
+    -- must get current mode before potentially altering using ESC input later
+    local mode = vim.fn.mode()
+
+    -- must exit visual mode before continuing
+    -- local esc = vim.api.nvim_replace_termcodes("<Esc>", true, false, true)
+    vim.api.nvim_feedkeys(termcode.esc, "nx", false)
+
+    local marks = { "<", ">" }
+    local sln, eln =
+        vim.api.nvim_buf_get_mark(0, marks[1]), vim.api.nvim_buf_get_mark(0, marks[2])
+    local region = { srow = sln[1], scol = sln[2], erow = eln[1], ecol = eln[2] }
+
+    ---@type string[]
+    local sel
+    if mode == "V" then -- mode is visual-block
+        if region.srow == region.erow then
+            -- if visual-block and no range on row markers,
+            -- then we must be selecting the current line only
+            sel = { vim.api.nvim_get_current_line() }
+        else
+            sel = vim.api.nvim_buf_get_lines(0, region.srow - 1, region.erow, false)
+        end
+    else -- otherwise mode is visual
+        sel = vim.api.nvim_buf_get_text(
+            0,
+            region.srow - 1,
+            region.scol,
+            region.erow - 1,
+            region.ecol + 1,
+            {}
+        )
+    end
+
+    for i, v in ipairs(sel) do
+        if mode == "V" then
+            v = vim.trim(v)
+        end
+        v = v:gsub("\\", "\\\\")
+        v = v:gsub("%/", "\\/")
+        sel[i] = v
+    end
+
+    local subst = table.concat(sel, "\\n")
+    subst = subst:gsub("%.", "\\.")
+    subst = subst:gsub("%*", "\\*")
+    subst = subst:gsub("%[", "\\[")
+    subst = subst:gsub("%^", "\\^")
+    subst = subst:gsub("%$", "\\$")
+
+    local repl = table.concat(sel, "\\r")
+    repl = repl:gsub("%&", "\\&")
+
+    local text_len = subst:len() + repl:len()
+    if text_len < 2 then
+        -- empty substitution, do nothing
+        return
+    end
+
+    local max_subst_len = 50
+    if text_len > max_subst_len then
+        local s = string.format(
+            "Substitution cancelled.\z
+            \nMaximum combined substitution + replacement \z
+            payload length is currently set to: %s",
+            max_subst_len
+        )
+        vim.api.nvim_err_writeln(s)
+        return
+    end
+
+    vim.fn.setreg("s", subst)
+    vim.fn.setreg("r", repl)
+
+    local subst_flags = "gI"
+
+    -- calculate cursor movement using length of subst_flags
+    local suff_v = { subst_flags }
+    for i = 2, subst_flags:len() + 2 do
+        table.insert(suff_v, i, termcode.left)
+    end
+    local suff = table.concat(suff_v, "")
+
+    local s = (":%%s/%ss/%sr/%s"):format(termcode.c_r, termcode.c_r, suff)
+
+    vim.api.nvim_feedkeys(s, "n", false)
+end, { desc = "Find and replace the current selection" })
+
 vim.keymap.set(
     "n",
     "<leader>x",
