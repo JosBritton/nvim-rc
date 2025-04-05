@@ -42,15 +42,9 @@ vim.api.nvim_create_autocmd({ "BufReadPre" }, {
                 local path =
                     vim.fn.fnamemodify(vim.api.nvim_buf_get_name(ev.buf), ":p:~:.")
 
-                -- notify as warning
-                local notify = vim["notify"] --[[@as fun(...)]]
-                notify = vim.in_fast_event() and vim.schedule_wrap(notify) or notify
-                local msg = table.concat({
-                    ("Big file detected `%s`."):format(path),
-                    "Some Neovim features have been **disabled**.",
-                }, "\n")
-                msg = vim.trim(msg)
-                notify(msg, vim.log.levels.WARN, { title = "Big File" })
+                local s = ("Big file detected `%s`.\nSome Neovim features \z
+                    have been **disabled**."):format(path)
+                Notify.warn(s, { title = "Big File" })
 
                 vim.api.nvim_buf_call(ev.buf, function()
                     -- disable auto-parenthesis match plugin

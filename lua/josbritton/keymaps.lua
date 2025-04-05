@@ -204,13 +204,11 @@ vim.keymap.set("x", "<leader>s", function()
 
     local max_subst_len = 50
     if text_len > max_subst_len then
-        local s = string.format(
-            "Substitution cancelled.\z
-            \nMaximum combined substitution + replacement \z
-            payload length is currently set to: %s",
-            max_subst_len
-        )
-        vim.api.nvim_err_writeln(s)
+        local s = ("Substitution cancelled.\nMaximum combined substitution \z
+            + replacement payload length\nis set to `%s`, while requested length \z
+            is `%s`."):format(max_subst_len, text_len)
+        Notify.warn(s, { title = "Substitution failed" })
+
         return
     end
 

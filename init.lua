@@ -1,3 +1,5 @@
+Notify = require("josbritton.notify")
+-- start config
 require("josbritton.options")
 require("josbritton.theme")
 require("josbritton.events")
