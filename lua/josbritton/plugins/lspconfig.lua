@@ -118,11 +118,6 @@ return {
                 -- manual format binding
                 nmap("<leader>f", vim.lsp.buf.format, "Format current buffer with LSP")
 
-                -- create a command `:Format` local to the LSP buffer
-                vim.api.nvim_buf_create_user_command(ev.buf, "Format", function(_)
-                    vim.lsp.buf.format()
-                end, { desc = "Format current buffer with LSP" })
-
                 local client = vim.lsp.get_client_by_id(ev.data.client_id)
                 if
                     client
@@ -144,6 +139,11 @@ return {
                 then
                     return
                 end
+
+                -- create a command `:Format` local to the LSP buffer
+                vim.api.nvim_buf_create_user_command(ev.buf, "Format", function(_)
+                    vim.lsp.buf.format()
+                end, { desc = "Format current buffer with LSP" })
 
                 -- organize Go imports before write
                 if client.name == "gopls" then
