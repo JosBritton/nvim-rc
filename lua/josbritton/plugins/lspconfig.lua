@@ -175,7 +175,7 @@ return {
                                 end
                             end
                             vim.lsp.buf.format({
-                                async = false,
+                                async = false, -- default
                                 filter = function(c)
                                     return c.id == client.id
                                 end,
@@ -213,7 +213,7 @@ return {
                         buffer = ev.buf,
                         callback = function()
                             vim.lsp.buf.format({
-                                async = false,
+                                async = false, -- default
                                 filter = function(c)
                                     return c.id == client.id
                                 end,
