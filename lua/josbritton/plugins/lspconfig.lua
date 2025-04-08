@@ -133,9 +133,14 @@ return {
                     end, "[T]oggle Inlay [H]ints")
                 end
 
+                local lsp_formatting_blocklist = {
+                    ts_ls = true,
+                    lua_ls = true,
+                }
+                -- continue only if we need LSP formatting
                 if
                     not (client and client.server_capabilities.documentFormattingProvider)
-                    or client.name == "ts_ls"
+                    or lsp_formatting_blocklist[client.name] ~= nil
                 then
                     return
                 end
