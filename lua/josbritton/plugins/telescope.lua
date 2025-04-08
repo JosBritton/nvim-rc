@@ -18,11 +18,11 @@ return {
         },
     },
     keys = {
-        {
-            "<leader>?",
-            "<cmd>Telescope oldfiles<CR>",
-            desc = "[?] Find recently opened files",
-        },
+        -- {
+        --     "<leader>?",
+        --     "<cmd>Telescope oldfiles<CR>",
+        --     desc = "[?] Find recently opened files",
+        -- },
         {
             "<leader><space>",
             "<cmd>Telescope buffers<CR>",
