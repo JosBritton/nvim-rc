@@ -17,6 +17,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 })
 
 -- ignore compiled files
+---@diagnostic disable-next-line: param-type-mismatch
 vim.opt.wildignore:append({
     "*.o",
     "*~",
@@ -81,6 +82,7 @@ vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 
+---@diagnostic disable-next-line: param-type-mismatch
 vim.opt.diffopt:append({
     "hiddenoff", -- no diff for hidden bufs
     "algorithm:minimal", -- spend extra cycles for the smallest possible diff
@@ -93,6 +95,7 @@ vim.opt.signcolumn = "yes"
 -- (for example, showing completions on hover)
 vim.opt.updatetime = 1000
 
+---@diagnostic disable-next-line: missing-fields
 vim.opt.completeopt = { "menuone", "noselect" }
 
 vim.opt.termguicolors = true
@@ -100,6 +103,7 @@ vim.opt.termguicolors = true
 vim.opt.wrap = false
 
 -- vim.o.cursorline = true
+---@diagnostic disable-next-line: missing-fields
 vim.opt.backspace = { "indent", "eol", "start" }
 
 vim.opt.scrolloff = 14
@@ -109,6 +113,7 @@ vim.opt.incsearch = true
 vim.opt.inccommand = "split"
 
 vim.opt.list = true
+---@diagnostic disable-next-line: missing-fields
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
 vim.filetype.add({
