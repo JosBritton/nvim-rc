@@ -187,16 +187,14 @@ return {
 
                 -- LSP autoformatting *before* saving file
                 --
-                -- if LSP client that is attaching to current buffer is in table `autoformat_clients`:
-                -- if TRUE,
+                -- if LSP client that is attaching to current buffer is in table `lsp_autoformat_clients`:
+                -- if NOT NIL,
                 --     enable autoformatting, creating the command `:AutoFormatOFF` to temporarily disable it
-                -- if FALSE,
+                -- if NIL,
                 --     create the command `AutoFormatON` to temporarily enable autoformatting
 
-                local lsp_autoformat_default = true
-
-                local autoformat_clients = {
-                    "rust_analyzer",
+                local lsp_autoformat_clients = {
+                    rust_analyzer = true,
                 }
 
                 ---@type function
@@ -260,20 +258,13 @@ return {
                     )
                 end
 
-                for _, v in ipairs(autoformat_clients or {}) do
-                    if v == client.name then
-                        if lsp_autoformat_default then
-                            local ok, cmd = pcall(enable_lsp_autoformatting)
-                            if ok then
-                                create_autoformat_off_cmd(cmd)
-                            end
-                        else
-                            create_autoformat_on_cmd()
-                        end
-
-                        -- found client, do not continue loop
-                        break
+                if (lsp_autoformat_clients or {})[client.name] ~= nil then
+                    local ok, cmd = pcall(enable_lsp_autoformatting)
+                    if ok then
+                        create_autoformat_off_cmd(cmd)
                     end
+                else
+                    create_autoformat_on_cmd()
                 end
             end,
         })
