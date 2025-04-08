@@ -4,6 +4,7 @@ return {
     lazy = true,
     cmd = {
         -- :h fugitive-commands
+        -- note: additional commands with `!` suffix will also trigger the plugin to load
         "G",
         "Git",
         "Ggrep",
@@ -34,5 +35,6 @@ return {
     keys = {
         { "<leader>gs", "<cmd>Git<cr>", desc = "[G]it [S]tatus" },
         { "<leader>gb", "<cmd>GBrowse<cr>", desc = "[G]it [B]rowse" },
+        { "<leader>gd", "<cmd>Gvdiffsplit!<cr>", desc = "[G]it [D]iff split" },
     },
 }
