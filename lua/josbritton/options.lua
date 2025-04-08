@@ -10,6 +10,8 @@ vim.opt.timeoutlen = 1000
 -- override formatoptions for all buffers
 vim.api.nvim_create_autocmd("BufEnter", {
     callback = function()
+        -- do not automatically insert current comment leader after
+        -- hitting 'o' or 'O' in normal mode
         vim.opt.formatoptions:remove("o")
     end,
 })
