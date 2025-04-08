@@ -60,8 +60,8 @@ return {
             map(
                 { "n", "v" },
                 "<leader>td",
-                gitsigns.toggle_deleted,
-                { desc = "Git toggle deleted" }
+                gitsigns.preview_hunk_inline,
+                { desc = "Preview git hunk inline" }
             )
 
             map(
