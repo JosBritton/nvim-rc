@@ -86,7 +86,7 @@ return {
                     vim.cmd.normal({ "[c", bang = true })
                 else
                     vim.schedule(function()
-                        gitsigns.nav_hunk("previous")
+                        gitsigns.nav_hunk("prev")
                     end)
                 end
             end, { desc = "Jump to previous hunk" })
