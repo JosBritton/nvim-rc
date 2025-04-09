@@ -15,7 +15,6 @@ return {
         "williamboman/mason-lspconfig.nvim",
         { "j-hui/fidget.nvim", opts = {} }, -- status UI when loading LSP
         { "folke/neodev.nvim", opts = {} },
-        { "microsoft/python-type-stubs" },
         { "p00f/clangd_extensions.nvim", lazy = true },
         "saghen/blink.cmp",
     },
@@ -458,17 +457,7 @@ return {
                     -- staticcheck = true
                 },
             },
-            pyright = {
-                -- adds all the VSCode msoft type stubs to your pyright env
-                -- might not be a great idea
-                before_init = function(_, config)
-                    ---@type string
-                    ---@diagnostic disable-next-line:assign-type-mismatch
-                    local std_data = vim.fn.stdpath("data")
-                    config.settings.python.analysis.stubPath =
-                        vim.fs.joinpath(std_data, "lazy", "python-type-stubs")
-                end,
-            },
+            pyright = {},
             ts_ls = {
                 settings = {
                     implicitProjectConfiguration = {
