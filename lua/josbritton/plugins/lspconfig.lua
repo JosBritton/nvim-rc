@@ -160,12 +160,13 @@ return {
                             local params = vim.lsp.util.make_range_params()
                             params.context = { only = { "source.organizeImports" } }
 
+                            local timeout_ms = 1000
                             local result, _ = vim.lsp.buf_request_sync(
                                 0,
                                 "textDocument/codeAction",
                                 params,
-                                1000
-                            ) -- 1000 ms timeout
+                                timeout_ms
+                            )
                             for cid, res in pairs(result or {}) do
                                 for _, r in pairs(res.result or {}) do
                                     if r.edit then
