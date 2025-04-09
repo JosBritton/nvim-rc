@@ -105,3 +105,35 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
         vim.opt.lazyredraw = false
     end,
 })
+
+-- lazily load core plugins on startup after init
+local id = vim.api.nvim_create_augroup("LazyLoadAll", { clear = true })
+vim.api.nvim_create_autocmd("User", {
+    pattern = "LazyDone",
+    group = id,
+    once = true,
+    callback = function(_ev)
+        vim.schedule(function()
+            require("lazy").load({
+                plugins = {
+                    "nvim-treesitter",
+                    "nvim-lspconfig",
+                    "blink.cmp",
+                    "nvim-dap",
+                    "lir-git-status.nvim",
+                    "telescope.nvim",
+                    "indent-blankline.nvim",
+                    "Comment.nvim",
+                    "nvim-colorizer.lua",
+                    "spaceless.nvim",
+                    "gitsigns.nvim",
+                    "nvim-autopairs",
+                    "nvim-lint",
+                    "vim-rhubarb",
+                    "conform.nvim",
+                    "cloak.nvim",
+                },
+            })
+        end)
+    end,
+})
