@@ -10,7 +10,7 @@ local opts = {
 
 return {
     "stevearc/conform.nvim",
-    event = { "VimEnter" },
+    event = { "BufReadPre", "BufNewFile" },
     cmd = { "ConformInfo" },
     init = function()
         for ft, _ in pairs(opts["formatters_by_ft"] or {}) do

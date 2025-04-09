@@ -16,8 +16,8 @@ return {
         { "j-hui/fidget.nvim", opts = {} }, -- status UI when loading LSP
         { "folke/neodev.nvim", opts = {} },
         { "p00f/clangd_extensions.nvim", lazy = true },
-        "saghen/blink.cmp",
     },
+    event = { "BufReadPre", "BufNewFile" },
     config = function()
         ---@type string[]
         local required_bins = {
