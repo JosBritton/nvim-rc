@@ -86,17 +86,16 @@ return {
             "`gcc` OR `clang` not installed or available."
         )
 
-        ---@type table<string>
+        ---@type string[]
         local required_bins = {
             "rg", -- required for live-grepping
             "fd", -- required for finding
             "make", -- required to build fzf-native
         }
-
-        for _, e in ipairs(required_bins) do
+        for _i, e in ipairs(required_bins) do
             assert(
                 vim.fn.executable(e) == 1,
-                string.format("`%s` not installed or available.", e)
+                ("`%s` not installed or available."):format(e)
             )
         end
 
