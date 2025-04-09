@@ -136,6 +136,7 @@ return {
                 local lsp_formatting_blocklist = {
                     ts_ls = true,
                     lua_ls = true,
+                    rust_analyzer = true,
                 }
                 -- continue only if we need LSP formatting
                 if
@@ -193,9 +194,7 @@ return {
                 -- if NIL,
                 --     create the command `AutoFormatON` to temporarily enable autoformatting
 
-                local lsp_autoformat_clients = {
-                    rust_analyzer = true,
-                }
+                local lsp_autoformat_clients = {}
 
                 ---@type function
                 local enable_lsp_autoformatting
