@@ -205,7 +205,7 @@ return {
 
                 ---@return number # The ID number of the autocommand that was just created
                 enable_lsp_autoformatting = function()
-                    local cmd = vim.api.nvim_create_autocmd("BufWritePre", {
+                    return vim.api.nvim_create_autocmd("BufWritePre", {
                         group = id,
                         buffer = ev.buf,
                         callback = function()
@@ -217,7 +217,6 @@ return {
                             })
                         end,
                     })
-                    return cmd
                 end
 
                 ---@param cmd number The ID number of the autocommand to be deleted
