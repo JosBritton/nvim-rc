@@ -1,20 +1,99 @@
+---@type conform.setupOpts
+local opts = {
+    notify_on_error = false,
+    formatters_by_ft = {
+        lua = { "stylua" },
+        markdown = { "markdownlint" },
+        rust = { "rustfmt" },
+    },
+}
+
 return {
     "stevearc/conform.nvim",
-    event = { "BufWritePre" },
+    event = { "VimEnter" },
     cmd = { "ConformInfo" },
-    keys = {
-        {
-            "<leader>f",
-            function()
-                require("conform").format({
-                    async = true,
-                    lsp_format = "fallback",
-                })
-            end,
-            mode = "",
-            desc = "[F]ormat buffer",
-        },
-    },
+    init = function()
+        for ft, _ in pairs(opts["formatters_by_ft"] or {}) do
+            vim.api.nvim_create_autocmd({ "FileType" }, {
+                pattern = ft,
+                callback = function(ev)
+                    ---@type function
+                    local enable_autoformatting
+                    ---@type function
+                    local create_autoformat_off_cmd
+                    ---@type function
+                    local create_autoformat_on_cmd
+
+                    -- create a command `:Format` local to the buffer
+                    vim.api.nvim_buf_create_user_command(ev.buf, "Format", function(_)
+                        vim.schedule(function()
+                            require("conform").format({
+                                bufnr = ev.buf,
+                                async = true,
+                                lsp_format = "never", -- handle lsp autoformatting ourselves
+                            })
+                        end)
+                    end, { desc = "Format current buffer" })
+
+                    ---@return number # The ID number of the autocommand that was just created
+                    enable_autoformatting = function()
+                        return vim.api.nvim_create_autocmd("BufWritePre", {
+                            buffer = ev.buf,
+                            callback = function(ev)
+                                require("conform").format({
+                                    bufnr = ev.buf,
+                                    async = false,
+                                    lsp_format = "never", -- handle lsp autoformatting ourselves
+                                })
+                            end,
+                        })
+                    end
+
+                    ---@param cmd number The ID number of the autocommand to be deleted
+                    ---@return nil
+                    create_autoformat_off_cmd = function(cmd)
+                        pcall(vim.api.nvim_buf_del_user_command, ev.buf, "AutoFormatON")
+
+                        -- use with `:AutoFormatOFF`, buffer-local & temporary
+                        vim.api.nvim_buf_create_user_command(
+                            ev.buf,
+                            "AutoFormatOFF",
+                            function()
+                                local ok, _ = pcall(vim.api.nvim_del_autocmd, cmd)
+                                if ok then
+                                    create_autoformat_on_cmd()
+                                end
+                            end,
+                            { desc = "Disable automatic formatting before saving" }
+                        )
+                    end
+
+                    ---@return nil
+                    create_autoformat_on_cmd = function()
+                        pcall(vim.api.nvim_buf_del_user_command, ev.buf, "AutoFormatOFF")
+
+                        -- use with `:AutoFormatON`, buffer-local & temporary
+                        vim.api.nvim_buf_create_user_command(
+                            ev.buf,
+                            "AutoFormatON",
+                            function()
+                                local ok, cmd = pcall(enable_autoformatting)
+                                if ok then
+                                    create_autoformat_off_cmd(cmd)
+                                end
+                            end,
+                            { desc = "Enable automatic formatting before saving" }
+                        )
+                    end
+
+                    local ok, cmd = pcall(enable_autoformatting)
+                    if ok then
+                        create_autoformat_off_cmd(cmd)
+                    end
+                end,
+            })
+        end
+    end,
     opts = function()
         ---@type string[]
         local required_bins = {
@@ -28,34 +107,6 @@ return {
             )
         end
 
-        return {
-            notify_on_error = false,
-            format_on_save = function(bufnr)
-                -- enable "format_on_save lsp_fallback" for specific languages
-                local enable_filetypes = { lua = true }
-                ---@type nil|conform.LspFormatOpts
-                local lsp_format_opt
-                if enable_filetypes[vim.bo[bufnr].filetype] then
-                    lsp_format_opt = "fallback"
-                else
-                    lsp_format_opt = "never"
-                end
-                return {
-                    timeout_ms = 500,
-                    lsp_format = lsp_format_opt,
-                }
-            end,
-            formatters_by_ft = {
-                lua = { "stylua" },
-                markdown = { "markdownlint" },
-                rust = { "rustfmt" },
-                -- conform can also run multiple formatters sequentially
-                -- python = { "isort", "black" },
-                --
-                -- you can use 'stop_after_first' to run the first available formatter from
-                -- the list
-                -- javascript = { "prettierd", "prettier", stop_after_first = true },
-            },
-        }
+        return opts
     end,
 }

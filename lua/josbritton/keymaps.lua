@@ -239,3 +239,5 @@ vim.keymap.set(
 vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
 end, { desc = "Source current file" })
+
+vim.keymap.set("n", "<leader>f", "<Cmd>Format<cr>", { desc = "Format current buffer" })

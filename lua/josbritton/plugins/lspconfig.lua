@@ -114,9 +114,6 @@ return {
                 --  for example, in C this would take you to the header.
                 nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
-                -- manual format binding
-                nmap("<leader>f", vim.lsp.buf.format, "Format current buffer with LSP")
-
                 local client = vim.lsp.get_client_by_id(ev.data.client_id)
                 if
                     client
@@ -145,46 +142,63 @@ return {
                     return
                 end
 
-                -- create a command `:Format` local to the LSP buffer
-                vim.api.nvim_buf_create_user_command(ev.buf, "Format", function(_)
-                    vim.lsp.buf.format()
-                end, { desc = "Format current buffer with LSP" })
+                ---@param opts vim.lsp.buf.format.Opts
+                local lsp_format = function(opts)
+                    vim.lsp.buf.format(opts)
+                end
 
                 -- organize Go imports before write
                 if client.name == "gopls" then
-                    vim.api.nvim_create_autocmd("BufWritePre", {
-                        group = id,
-                        buffer = ev.buf,
-                        callback = function()
-                            local params = vim.lsp.util.make_range_params()
-                            params.context = { only = { "source.organizeImports" } }
+                    lsp_format = function(opts)
+                        local params = vim.lsp.util.make_range_params()
+                        params.context = { only = { "source.organizeImports" } }
 
-                            local timeout_ms = 1000
-                            local result, _ = vim.lsp.buf_request_sync(
-                                0,
-                                "textDocument/codeAction",
-                                params,
-                                timeout_ms
-                            )
-                            for cid, res in pairs(result or {}) do
-                                for _, r in pairs(res.result or {}) do
-                                    if r.edit then
-                                        local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding
-                                            or "utf-16"
-                                        vim.lsp.util.apply_workspace_edit(r.edit, enc)
-                                    end
+                        local timeout_ms = 1000
+                        local result, _ = vim.lsp.buf_request_sync(
+                            0,
+                            "textDocument/codeAction",
+                            params,
+                            timeout_ms
+                        )
+                        for cid, res in pairs(result or {}) do
+                            for _, r in pairs(res.result or {}) do
+                                if r.edit then
+                                    local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding
+                                        or "utf-16"
+                                    vim.lsp.util.apply_workspace_edit(r.edit, enc)
                                 end
                             end
-                            vim.lsp.buf.format({
-                                async = false, -- default
-                                filter = function(c)
-                                    return c.id == client.id
-                                end,
-                            })
-                        end,
-                    })
-                    return
+                        end
+                        vim.lsp.buf.format(opts)
+                    end
                 end
+
+                -- create a command `:Format` local to the LSP buffer
+                vim.api.nvim_buf_create_user_command(ev.buf, "Format", function(_)
+                    vim.schedule(function()
+                        lsp_format({
+                            async = true,
+                            filter = function(c)
+                                return c.id == client.id
+                            end,
+                        })
+                    end)
+                end, { desc = "Format current buffer with LSP" })
+
+                -- manual format binding
+                vim.keymap.set("n", "<leader>f", function()
+                    vim.schedule(function()
+                        lsp_format({
+                            async = true,
+                            filter = function(c)
+                                return c.id == client.id
+                            end,
+                        })
+                    end)
+                end, {
+                    buffer = ev.buf,
+                    desc = "Format current buffer with LSP",
+                })
 
                 -- LSP autoformatting *before* saving file
                 --
@@ -209,7 +223,7 @@ return {
                         group = id,
                         buffer = ev.buf,
                         callback = function()
-                            vim.lsp.buf.format({
+                            lsp_format({
                                 async = false, -- default
                                 filter = function(c)
                                     return c.id == client.id
