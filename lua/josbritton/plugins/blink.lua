@@ -118,9 +118,6 @@ return {
                 },
                 auto_show_delay_ms = 500,
             },
-            trigger = {
-                show_on_accept_on_trigger_character = false,
-            },
         },
 
         snippets = { preset = "luasnip" },
