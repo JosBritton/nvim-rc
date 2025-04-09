@@ -99,6 +99,9 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
             return
         end
 
+        -- temporarily prevent normal redrawing as we will force a redraw later
+        vim.opt.lazyredraw = true
+
         -- Add treesitter highlights and fallback to syntax
         local lang = vim.treesitter.language.get_lang(ft)
 
@@ -113,5 +116,6 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 
         -- trigger early redraw
         vim.cmd([[redraw]])
+        vim.opt.lazyredraw = false
     end,
 })
