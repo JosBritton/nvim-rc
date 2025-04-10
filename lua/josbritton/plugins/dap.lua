@@ -67,7 +67,11 @@ return {
         local dap = require("dap")
         local ui = require("dapui")
 
-        require("dapui").setup()
+        require("dapui").setup({
+            mappings = {
+                edit = { "E" },
+            },
+        })
         require("nvim-dap-virtual-text").setup()
 
         local rust_gdb = vim.fn.exepath("rust-gdb")
