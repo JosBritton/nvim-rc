@@ -14,7 +14,6 @@ return {
         { "williamboman/mason.nvim", config = true }, -- NOTE: Must be loaded before dependants
         "williamboman/mason-lspconfig.nvim",
         { "j-hui/fidget.nvim", opts = {} }, -- status UI when loading LSP
-        { "folke/neodev.nvim", opts = {} },
         { "p00f/clangd_extensions.nvim", lazy = true },
     },
     event = { "BufReadPre", "BufNewFile" },
