@@ -333,6 +333,52 @@ function M:load()
         "IndentBlanklineContextStart",
         { fg = "NONE", bg = "NONE", sp = C.fg3, underdotted = true }
     )
+
+    hl("BlinkCmpLabelDeprecated", { strikethrough = true })
+    -- hl("BlinkCmpLabelDetail", {})
+    -- hl("BlinkCmpLabelDescription", {})
+    -- hl("BlinkCmpSource", {})
+    -- hl("BlinkCmpKind", {})
+
+    hl("BlinkCmpKindStruct", { fg = C.yellow2 })
+    hl("BlinkCmpKindFunction", text_blue)
+    hl("BlinkCmpKindText", { fg = C.fg2 })
+    hl("BlinkCmpKindClass", { fg = C.yellow2 })
+    hl("BlinkCmpKindValue", text_orange)
+    hl("BlinkCmpKindEnum", { fg = C.yellow2 })
+    hl("BlinkCmpKindInterface", { fg = C.yellow2 })
+    hl("BlinkCmpKindMethod", text_cyan)
+    hl("BlinkCmpKindUnit", text_red)
+    hl("BlinkCmpKindConstant", text_emphasis)
+    hl("BlinkCmpKindField", text_blue)
+    hl("BlinkCmpKindModule", { fg = C.yellow2 })
+    hl("BlinkCmpKindKeyword", text_magenta_italic)
+    hl("BlinkCmpKindEnumMember", text_emphasis)
+    hl("BlinkCmpKindProperty", text_blue)
+    hl("BlinkCmpKindOperator", text_orange)
+    hl("BlinkCmpKindReference", { fg = C.fg2 })
+    hl("BlinkCmpKindSnippet", text_emphasis)
+    hl("BlinkCmpKindTypeParameter", { fg = C.yellow2 })
+    hl("BlinkCmpKindVariable", { fg = C.fg2 })
+
+    hl("BlinkCmpScrollBarThumb", { link = "PmenuThumb" })
+    hl("BlinkCmpScrollBarGutter", { link = "PmenuSbar" })
+
+    hl("BlinkCmpGhostText", { link = "NonText" })
+
+    hl("BlinkCmpMenu", { link = "Pmenu" })
+    hl("BlinkCmpMenuBorder", { link = "Pmenu" })
+    hl("BlinkCmpMenuSelection", { link = "PmenuSel" })
+
+    hl("BlinkCmpDoc", { link = "NormalFloat" })
+    hl("BlinkCmpDocBorder", { link = "NormalFloat" })
+    hl("BlinkCmpDocSeparator", { link = "NormalFloat" })
+    hl("BlinkCmpDocCursorLine", { link = "Visual" })
+
+    hl("BlinkCmpSignatureHelp", { link = "NormalFloat" })
+    hl("BlinkCmpSignatureHelpBorder", { link = "NormalFloat" })
+    hl("BlinkCmpSignatureHelpActiveParameter", { link = "LspSignatureActiveParameter" })
+
     hl("CmpItemAbbrDeprecated", { strikethrough = true })
     hl("CmpItemKindStruct", { fg = C.yellow2 })
     hl("CmpItemKindFunction", text_blue)
