@@ -13,7 +13,7 @@ return {
         },
     },
     event = "InsertEnter",
-    version = "*", -- latest stable release
+    -- version = "*", -- latest stable release
     build = (function()
         -- rustup is makes building from nightly much easier, use if possible
         if vim.fn.executable("rustup") ~= 1 then
