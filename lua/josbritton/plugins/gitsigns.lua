@@ -5,6 +5,10 @@ return {
         local gitsigns = require("gitsigns")
 
         local function on_attach(bufnr)
+            ---@param mode string|string[]
+            ---@param l string
+            ---@param r string|function
+            ---@param opts? vim.keymap.set.Opts
             local function map(mode, l, r, opts)
                 opts = opts or {}
                 opts.buffer = bufnr
