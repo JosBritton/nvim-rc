@@ -30,7 +30,7 @@ vim.opt.wildignore:append({
 vim.opt.spelllang = "en_us"
 vim.opt.spellfile = data .. "/en.utf-8.add"
 
--- the command bar is just for commands and output
+-- show only commands and output in the command bar
 vim.opt.showcmd = false
 vim.opt.showmode = false
 
