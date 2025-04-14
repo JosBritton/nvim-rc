@@ -13,8 +13,17 @@ return {
         },
     },
     event = "InsertEnter",
-    -- use a release tag to download pre-built binaries
-    version = "1.*",
+    version = "*", -- latest stable release
+    build = (function()
+        -- rustup is makes building from nightly much easier, use if possible
+        if vim.fn.executable("rustup") ~= 1 then
+            if vim.fn.executable("cargo") ~= 1 then
+                return -- no build will occur, and may fallback to lua if unbuilt!
+            end
+            return "cargo build --release" -- requires nightly!
+        end
+        return "rustup run nightly cargo build --release"
+    end)(),
     ---@module "blink.cmp"
     ---@type blink.cmp.Config
     opts = {
@@ -141,8 +150,14 @@ return {
                 },
             },
         },
-        fuzzy = { implementation = "prefer_rust_with_warning" },
-
+        fuzzy = {
+            implementation = "prefer_rust_with_warning",
+            -- default behavior is to download prebuilt binareis when `version` is defined
+            -- force compilation from source
+            prebuilt_binaries = {
+                download = false,
+            },
+        },
         signature = {
             -- 2025-03-30 marked as experimental (opt-in)
             enabled = true,
