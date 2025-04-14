@@ -88,6 +88,10 @@ return {
                     },
                     previewer = false,
                     ignore_current_buffer = true,
+                    push_tagstack_on_edit = true,
+                },
+                live_grep = {
+                    push_tagstack_on_edit = true,
                 },
             },
         })
