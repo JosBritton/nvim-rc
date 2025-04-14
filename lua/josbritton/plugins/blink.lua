@@ -32,6 +32,14 @@ return {
         },
 
         completion = {
+            list = {
+                -- https://cmp.saghen.dev/configuration/completion#list
+                -- Manual, Auto Insert
+                selection = {
+                    preselect = false,
+                    auto_insert = true,
+                },
+            },
             menu = {
                 direction_priority = { "s", "n" },
                 draw = {
