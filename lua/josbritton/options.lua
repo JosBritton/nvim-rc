@@ -38,8 +38,22 @@ vim.opt.showmode = false
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 
--- prevent windows from changing
-vim.opt.equalalways = false
+-- resize all vim windows after splitting or closing one
+vim.opt.equalalways = true
+
+-- auto-resize vim-windows equally when the parent window is resized
+local gid = vim.api.nvim_create_augroup("AutoResize", { clear = true })
+vim.api.nvim_create_autocmd({ "VimResized" }, {
+    group = gid,
+    callback = function()
+        -- only continue if there is more than one window open
+        if vim.fn.winnr("$") > 1 then
+            -- note that the command must be sent immediately to avoid hangs
+            -- in other words: do not schedule this
+            vim.cmd("wincmd =")
+        end
+    end,
+})
 
 -- global statusline
 vim.opt.laststatus = 3
