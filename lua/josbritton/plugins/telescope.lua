@@ -67,8 +67,9 @@ return {
             defaults = {
                 mappings = {
                     i = {
-                        ["<C-u>"] = false,
-                        ["<C-d>"] = false,
+                        ["<C-u>"] = false, -- half-screen movement (up)
+                        ["<C-d>"] = false, -- half-screen movement (down)
+                        ["<esc>"] = actions.close, -- map ESC to quit in insert mode
                     },
                 },
             },
