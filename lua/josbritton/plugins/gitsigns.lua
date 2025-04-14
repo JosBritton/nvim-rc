@@ -70,25 +70,37 @@ return {
                 { desc = "Select git hunk from text object" }
             )
 
-            map("n", "]c", function()
+            ---@type Gitsigns.NavOpts
+            ---@diagnostic disable-next-line: missing-fields
+            local nav_opts = {
+                wrap = false,
+                navigation_message = true,
+                preview = false,
+                greedy = true,
+                target = "unstaged",
+            }
+
+            local next_hunk = function()
                 if vim.wo.diff then
                     vim.cmd.normal({ "]c", bang = true })
                 else
                     vim.schedule(function()
-                        gitsigns.nav_hunk("next")
+                        gitsigns.nav_hunk("next", nav_opts)
                     end)
                 end
-            end, { desc = "Jump to next hunk" })
+            end
+            map("n", "]c", next_hunk, { desc = "Jump to next hunk" })
 
-            map("n", "[c", function()
+            local prev_hunk = function()
                 if vim.wo.diff then
                     vim.cmd.normal({ "[c", bang = true })
                 else
                     vim.schedule(function()
-                        gitsigns.nav_hunk("prev")
+                        gitsigns.nav_hunk("prev", nav_opts)
                     end)
                 end
-            end, { desc = "Jump to previous hunk" })
+            end
+            map("n", "[c", prev_hunk, { desc = "Jump to previous hunk" })
 
             map("n", "<leader>hb", function()
                 gitsigns.blame_line({ full = true })
