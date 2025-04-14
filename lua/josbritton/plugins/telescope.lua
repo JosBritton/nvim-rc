@@ -1,6 +1,6 @@
 return {
     "nvim-telescope/telescope.nvim",
-    branch = "0.1.x",
+    branch = "master",
     dependencies = {
         -- note: will use LSP features
         "nvim-treesitter/nvim-treesitter", -- required for preview/finding
