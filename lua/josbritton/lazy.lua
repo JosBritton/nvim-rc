@@ -15,17 +15,8 @@ end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("josbritton.plugins", {
-    install = {
-        colorscheme = { "juliana" },
-    },
-    checker = {
-        enabled = true,
-        notify = false,
-    },
-    change_detection = {
-        notify = false,
-    },
-    rocks = {
-        enabled = false,
-    },
+    install = { colorscheme = { "juliana" }, missing = false },
+    checker = { enabled = true, notify = false },
+    change_detection = { notify = false },
+    rocks = { enabled = false },
 })
