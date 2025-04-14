@@ -90,6 +90,7 @@ return {
                 end
             end
             map("n", "]c", next_hunk, { desc = "Jump to next hunk" })
+            map("n", "<Tab>", next_hunk, { desc = "Jump to next hunk", noremap = true })
 
             local prev_hunk = function()
                 if vim.wo.diff then
@@ -101,6 +102,12 @@ return {
                 end
             end
             map("n", "[c", prev_hunk, { desc = "Jump to previous hunk" })
+            map(
+                "n",
+                "<S-Tab>",
+                prev_hunk,
+                { desc = "Jump to previous hunk", noremap = true }
+            )
 
             map("n", "<leader>hb", function()
                 gitsigns.blame_line({ full = true })
