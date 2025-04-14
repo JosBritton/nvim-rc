@@ -27,12 +27,13 @@ return {
             yaml = { "yamllint" },
         }
 
-        local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
-
-        vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
-            group = lint_augroup,
-            callback = function()
-                lint.try_lint()
+        local gid = vim.api.nvim_create_augroup("lint", { clear = true })
+        vim.api.nvim_create_autocmd({ "FileType", "BufWritePost", "CursorHold" }, {
+            group = gid,
+            callback = function(args)
+                if vim.bo[args.buf].buftype ~= "nofile" then
+                    lint.try_lint()
+                end
             end,
         })
 
