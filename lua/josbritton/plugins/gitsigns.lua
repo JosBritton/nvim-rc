@@ -18,11 +18,13 @@ return {
             map("n", "<leader>hs", gitsigns.stage_hunk, { desc = "Stage git hunk" })
 
             map("v", "<leader>hs", function()
+                -- partial-hunk selections only support line-by-line ranges
                 gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
             end, { desc = "Stage git hunk" })
 
             map("n", "<leader>hr", gitsigns.reset_hunk, { desc = "Reset git hunk" })
             map("v", "<leader>hr", function()
+                -- partial-hunk selections only support line-by-line ranges
                 gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
             end, { desc = "Reset git hunk" })
 
