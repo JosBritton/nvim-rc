@@ -93,7 +93,7 @@ return {
     },
     keys = {
         {
-            "<C-k>",
+            "<leader>wk",
             function()
                 ---@type wk.Filter
                 require("which-key").show({

@@ -24,8 +24,8 @@ return {
         --     desc = "[?] Find recently opened files",
         -- },
         {
-            "<leader><space>",
-            "<cmd>Telescope buffers<CR>",
+            "<C-k>",
+            "<cmd>Telescope buffers theme=dropdown<CR>",
             desc = "[ ] Find existing buffers",
         },
         {
@@ -62,6 +62,7 @@ return {
         "Telescope",
     },
     config = function()
+        local actions = require("telescope.actions")
         require("telescope").setup({
             defaults = {
                 mappings = {
@@ -76,6 +77,16 @@ return {
                     -- default picker ignores fd ignore file
                     find_command = { "fd", "--type", "f" },
                     push_tagstack_on_edit = true,
+                },
+                buffers = {
+                    mappings = {
+                        i = {
+                            -- close(delete) open buffer under cursor without closing telescope
+                            ["<leader>cc"] = actions.delete_buffer + actions.move_to_top,
+                        },
+                    },
+                    previewer = false,
+                    ignore_current_buffer = true,
                 },
             },
         })
