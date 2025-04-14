@@ -31,13 +31,6 @@ return {
 
             map(
                 { "n", "v" },
-                "<leader>hu",
-                gitsigns.undo_stage_hunk,
-                { desc = "Undo stage git hunk" }
-            )
-
-            map(
-                { "n", "v" },
                 "<leader>hR",
                 gitsigns.reset_buffer,
                 { desc = "Reset git buffer" }
